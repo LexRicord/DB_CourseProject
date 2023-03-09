@@ -1,0 +1,209 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+  <style type="text/css">
+    .style1
+    {
+      text-decoration: none;
+    }
+  </style>
+</head>
+<body style="" lang="EN-US" link="black" vlink="purple">
+<div class="Section1">
+<h1>Oracle Data Access Components (ODAC) 12.2c Release 1</h1>
+<div class="MsoNormal" style="text-align: center;" align="center">
+<hr align="center" size="1" width="100%"></div>
+<p>
+<big style="font-weight: bold;"><big><big>Xcopy Installation Guide</big></big></big></p>
+<p><b><span style="font-size: 13pt;">Release 12.2.0.1.0 for ODAC 12.2c Release 1<br>
+</span></b></p>
+<h4>May 2017</h4>
+<h4>Copyright (c) Oracle Corporation 2017</h4>
+<p>This document provides information regarding the contents on the zip file and the 
+    steps required to setup Oracle Data Access Components xcopy installation into an Oracle Instant 
+    Client Home.</p>
+
+    <ul>
+        <li><a href="#new">New Features</a></li>
+        <li><a href="#general">General Information</a></li>
+        <li><a href="#install">Installation Instructions</a></li>
+        <li><a href="#uninstall">Uninstallation Instructions</a></li>
+        <li><a href="#notes">Notes</li>
+    </ul>
+    <h2><a name="new"></a>New Features</h2>
+    <p>
+        The following features are newly supported in this release, but were not included in the documentation.
+    </p>
+    <ol>
+        <li>
+            &nbsp;.NET Framework 4.7 certification
+        </li>
+    </ol>
+<h2><a name="general"></a>General Information</h2>
+    <ol>
+        <li>&nbsp;The files of this zip file are NOT to be installed on top of an existing Oracle 
+            Universal Installer (OUI) based Oracle Home installation.</li>
+        <li>&nbsp;After unzipping the files, products must be installed and 
+            configured by executing the install.bat.</li>
+        <li>&nbsp;ODP.NET does not support usage of the "ALTER SESSION" statement to modify the Edition in Edition-Based Redefinition during the lifetime of a process.</li>
+        <li>
+            ODP.NET, Managed Driver and Distributed Transactions -
+            Using managed ODP.NET distributed transactions with Oracle.ManagedDataAccessDTC.dll is deprecated as it is primarily used with .NET Framework 4 releases
+            earlier than .NET 4.5.2. Microsoft has desupported these earlier .NET Framework 4 versions. Managed ODP.NET distributed transactions will continue to
+            be supported and enhanced with .NET Framework's native fully managed distributed transaction implementation.
+        </li>
+    </ol>
+    <a name="install"></a><h2>Installation Instructions</h2>
+    <ol>
+        <li>Download the ODAC (xcopy version) zip file to a directory for staging ODAC 
+            products.</li><br />
+        <li>Unzip ODAC (xcopy version) zip file to expand the contents.<br /><br /> The following 
+            directories will be created:<br /><br /> 
+            a) Instantclient_12_2 - Oracle Instant Client<br /> 
+            b) ODP.NET20 - Oracle Data Provider for .NET 2.0 <br /> 
+            c) ODP.NET4 - Oracle Data Provider for .NET 4 -- contains both managed and unmanaged drivers<br /> 
+            d) ASP.NET - Oracle Providers for ASP.NET 2.0 <br />
+            e) ASP.NET4 - Oracle Providers for ASP.NET 4 <br />
+            f) OLEDB - Oracle Provider for OLEDB <br />
+            g) OraMTS - Oracle Services for MTS <br /><br />
+            
+            The install.bat will also be 
+            extracted to the same location as the ODAC zip file, which is used to install 
+            and configure a specific product.<br /><br /> </li>
+        <li>
+            If installing into an
+            existing xcopy home, uninstall the existing version by following the instructions
+            in the "Uninstallation Instructions" section of this README.</li><br />
+<li>Execute install.bat to install and configure ODAC products. <br /><br />
+        Note: Depending on the components to install/configure, administrative level privileges may be required. Oracle recommends running the batch file under the "Run as Administrator" context.<br /><br />
+          To install all ODAC 
+            products, execute the following:<br /><br /> install.bat all c:\oracle odac<br /><br /> 
+            Each product can be also be installed and configured individually. As an 
+            example, executing the following will install only ODP.NET for .NET Framework 4<br /><br /> install.bat odp.net4 c:\oracle odac<br /><br /> 
+            where &quot;c:\oracle&quot;, for example, is your installation directory and &quot;odac&quot; is the 
+            Oracle Home Name that is used for the registry keys. In this example, the 
+            registry entries for this install are created under HKLM\Software\Oracle\KEY_odac. 
+            Note that ODP.NET registry entries are simply created under 
+            HKLM\Software\Oracle\ODP.NET\ not under HKLM\Software\Oracle\KEY_&lt;Oracle Home Name&gt;. 
+            If multiple products are installed to the same destination directory, make sure 
+            that the Oracle Home Name that is specified as an argument to install.bat is the 
+            same for all those products.<br /><br /> By default, when install.bat is executed for a 
+            given product, the product and its dependencies will be installed and configured 
+            WITHOUT a check to see if there is a newer version of the product or its 
+            dependencies already installed.<br /><br /> 
+            Below is the product dependency information:<br /><br /> 
+            a) Oracle Data Provider for .NET 2 depends on<br /> 
+            &nbsp;&nbsp; - Oracle Instant Client<br /> 
+            b) Oracle Data Provider for .NET 4 depends on<br /> 
+            &nbsp;&nbsp; - Oracle Instant Client (ODP.NET, Unmanaged Driver only)<br /> 
+            c) Oracle Providers for ASP.NET 2 depends on<br />
+            &nbsp;&nbsp; - Oracle Instant Client<br />
+            &nbsp;&nbsp; - Oracle Data Provider for .NET 2 (unmanaged driver)<br />
+            d) Oracle Providers for ASP.NET 4 depends on<br />
+            &nbsp;&nbsp; - Oracle Data Provider for .NET 4 (managed driver)<br />
+            e) Oracle Provider for OLEDB depends on<br />
+            &nbsp;&nbsp; - Oracle Instant Client<br />
+            f) Oracle Services for MTS depends on <br />
+            &nbsp;&nbsp; - Oracle Instant Client<br /><br />
+
+            
+            To not have the 
+            product dependencies installed and configured, execute install.bat with &#39;false&#39; 
+            as the fourth parameter.<br /><br /> For example, executing<br /><br /> install.bat odp.net4 c:\oracle 
+            odac false<br /><br /> will only install and configure ODP.NET 4 and not install and 
+            configure instant client. If the second to last argument is not specified, 
+            the product and its dependencies will be installed and configured.<br /><br />
+	    By default, machine_wide_configuration=false.
+	    
+            If machine_wide_configuration option is true, ODP.NET assemblies are placed into the GAC and machine.config is configured,
+            which impacts the entire machine.  However, if machine_wide_configuration option is false, ODP.NET assemblies are not
+            placed into the GAC and machine.config is not modified.  
+        Please simply execute install.bat without any parameters for more details.
+    If setting machine_wide_configuration=false,
+    ungac pre-existing ODP.NET and Oracle ASP.NET provider assemblies from all homes
+    on the machine and unconfigure them from machine.config. This can be accomplished
+    by following the instructions in the "Uninstallation Instructions" section of this README.
+        <br /><br /> </li>
+        <li>Add the install directory and install directory&#39;s bin subdirectory to the system 
+            PATH environment variable before any other Oracle directories. Otherwise, the 
+            products that are installed may not work properly as it will not be able to load 
+            the necessary DLLs. for example, if c:\oracle was provided as the install 
+            directory, add c:\oracle and c:\oracle\bin to the system PATH.<br /><br /> </li>
+        <li>Note that install.bat sets the value of the NLS_LANG registry key at 
+            HKLM\Software\Oracle\KEY_&lt;Oracle Home Name&gt; to AMERICAN_AMERICA.WE8MSWIN1252 by 
+            default. Please modify install.bat or change this value in the registry after 
+            the install if necessary.<br /><br /></li>
+        <li> If OraMTS is installed, the Oracle&lt;OracleHomeName&gt;MTSRecoveryService is created with the LocalService account as the logon account. 
+        The credentials can be changed using the "services" administration tool. The default port used is 2030. Please read the OraMTS documentation for details. 
+        Note that after the install or the configuration, the service will not be started, since it requires the install directory and its bin 
+        directory to be included in the system PATH.
+<br /><br /></li>
+        <li>Applications using components from ODAC can use EZ CONNECT to connect to Oracle 
+            without depending on tnsnames.ora. Otherwise, configure or copy over 
+            tnsnames.ora from another machine and set TNS_ADMIN or ORACLE_HOME environment 
+            variable appropriately.</li>
+    </ol>
+    <p>
+    </p>
+         
+    <a name="uninstall"></a><h2>Uninstallation Instructions</h2>
+    <ol>
+        <li>Execute uninstall.bat from the Oracle Home installation directory to unconfigure 
+            and uninstall ODAC products.<br /><br /> To uninstall all ODAC products, execute the 
+            following:<br /><br /> uninstall.bat all odac<br />
+            or<br /> uninstall.bat all c:\oracle<br />
+          <br />Each product can be also be unconfigured and 
+            uninstalled individually. As an example, executing the following will uninstall 
+            only ODP.NET 4:<br />
+          <br />uninstall.bat odp.net4 odac<br />
+          or<br />uninstall.bat odp.net4 c:\oracle<br />
+          <br />where &quot;odac&quot; is the Oracle Home 
+            Name that was used at install time and &quot;c:\oracle&quot; is the installation directory. The uninstall.bat does not uninstall the 
+            product&#39;s depenencies. This means that the above example will only uninstall 
+            ODP.NET 4 and not it&#39;s dependencies.<br /><br />
+            The same machine_wide_configuration option that was provided to install.bat must be provided to uninstall.bat<br /><br /> </li>
+        <li>Remove the install directory and install directory&#39;s bin subdirectory from the 
+            system PATH environment variable.</li>
+    </ol>
+    <a name="Notes"></a><h2>Notes</h2>
+    <ol>
+        <li>The install and uninstall scripts log all operations to the destination 
+            directory&#39;s install.log and uninstall.log.</li><p></p>
+        <li>
+            <b>Known Issue</b>: Oracle Services for MTS account/password name invalid when configuring ODAC xcopy on Windows configured for a Western European (non-English) language.<p></p>
+            <b> Problem Statement</b>: When executing install.bat, the following error occurs:<p></p>
+
+            <i>
+                Configuring Oracle Services for MTS<br />
+                ***********************************<br />
+                [SC] CreateService, failure (s) 1057:<br />
+                "The account name is invalid or does not exist, or the password is invalid for the account name..."
+            </i><p></p>
+
+            <b>Workaround</b>: Execute the command below, substituting &lt;OracleHomeName&gt; and &lt;OracleHomePath&gt;
+                    with your deployment's specific values. Replace "NT AUTHORITY\LOCAL SERVICE" with the localized name in the West European language the Windows system uses.
+            <p></p>
+            <i>
+                sc.exe create Oracle&lt;OracleHomeName&gt;MTSRecoveryService binpath= "&lt;OracleHomePath&gt;\bin\omtsreco.exe Oracle&lt;OracleHomeName&gt;MTSRecoveryService" start= auto obj= "NT AUTHORITY\LOCAL SERVICE" DisplayName= Oracle&lt;OracleHomeName&gt;MTSRecoveryService
+                </i>
+                <p></p>
+                For example, if your &lt;OracleHomeName&gt;
+                is "Ora32" and &lt;OracleHomePath&gt;
+                is "c:\Ora32", execute below:
+            <br />
+            <i>
+                sc.exe create OracleOra32MTSRecoveryService binpath= "c:\Ora32\bin\omtsreco.exe OracleOra32MTSRecoveryService" start= auto obj= "NT AUTHORITY\LOCAL SERVICE" DisplayName= OracleOra32MTSRecoveryService
+            </i>
+                <p></p>
+                Sample successful execution.<br />
+            <i>
+                D:\odac12.2.0.1.0.64bit\xcopy.All\test.32&gt;sc.exe create OracleOra32MTSRecoveryService binpath= "c:\Ora32\bin\omtsreco.exe OracleOra32MTSRecoveryService" start= auto obj= "NT AUTHORITY\LOCAL SERVICE" DisplayName= OracleOra32MTSRecoveryService
+                <br />
+                [SC] CreateService SUCCESS
+                </i>
+
+</li>
+    </ol>
+    </div>
+</body>
+</html>

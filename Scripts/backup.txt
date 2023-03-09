@@ -1,0 +1,23 @@
+shutdown immediate;
+
+rman target /
+
+run{
+backup database;
+backup archivelog all;
+}
+
+del C\Oracle_setup\WINDOWS.X64_193000_db_home\database\SPFILEORCL.ORA
+rmdir C\Oracle_setup\app\ora_install_user\oradata\ORCL_DB /s
+rmdir C\Oracle_setup\app\ora_install_user\oradata\ORCL /s
+dell C\Oracle_setup\app\recovery_area\ORCL\CONTROL02.CTL
+
+startup force nomount
+
+restore spfile from 'C:\ORACLE_SETUP\WINDOWS.X64_193000_DB_HOME\DATABASE\C-54942010-20221226-00'
+
+start nomount
+restore controlfile from 'C:\ORACLE_SETUP\WINDOWS.X64_193000_DB_HOME\DATABASE\C-54942010-20221226-00'
+
+startup mount
+restore database;
