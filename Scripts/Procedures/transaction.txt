@@ -1,0 +1,35 @@
+using System;
+using System.Data;
+using System.Data.SqlClient; // Используйте соответствующий провайдер для вашей базы данных
+
+class Program
+{
+    static void Main()
+    {
+        string connectionString = "YourConnectionStringHere";
+
+        using (SqlConnection connection = new SqlConnection(connectionString))
+        {
+            connection.Open();
+
+            // Начало транзакции
+            SqlTransaction transaction = connection.BeginTransaction();
+
+            try
+            {
+                // Ваши операции с базой данных здесь
+
+                // Если все операции успешно выполнены, фиксируем транзакцию
+                transaction.Commit();
+                Console.WriteLine("Транзакция успешно завершена.");
+            }
+            catch (Exception ex)
+            {
+                // Если возникла ошибка, откатываем транзакцию
+                transaction.Rollback();
+                Console.WriteLine("Произошла ошибка. Транзакция отменена.");
+                Console.WriteLine(ex.Message);
+            }
+        }
+    }
+}
