@@ -1,8 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "uPOUBUWocaK8XYwHxh0AyMgwQlMNyL/oKXihzgnjQxE6WUuXCrTIRQ3yZQauvs0+G7GUO1KCGj0nd4KMbQGT0A==",
+  "dgSpecHash": "Sjtt1zc1G00cLGzPAue7GYcyQZxAMlKzY0Uo9vgiPmP1pKSlc2LfY6e5fI+rTP7215ruKjE3w3OQ2ZKnkOFE0A==",
   "success": true,
   "projectFilePath": "D:\\repos\\DB_CourseProject\\DB_CourseProject\\DB_CourseProject\\DB_CourseProject.csproj",
-  "expectedPackageFiles": [],
+  "expectedPackageFiles": [
+    "E:\\soft\\nuget\\communitytoolkit.mvvm\\8.2.1\\communitytoolkit.mvvm.8.2.1.nupkg.sha512"
+  ],
   "logs": []
 }
