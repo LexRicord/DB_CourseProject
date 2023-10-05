@@ -10,11 +10,11 @@ none
 false
 TRACE;DEBUG;NET;NET7_0;NETCOREAPP
 D:\repos\DB_CourseProject\DB_CourseProject\DB_CourseProject\App.xaml
-1-1644662438
+4962460673
 
-6523557743
+8212249632
 199-208150352
-Views\MainWindow.xaml;
+ResourceDictionaries\Triggers.xaml;Views\LoginWindow.xaml;Views\MainWindow.xaml;Views\RegistrationWindow.xaml;
 
 True
 
