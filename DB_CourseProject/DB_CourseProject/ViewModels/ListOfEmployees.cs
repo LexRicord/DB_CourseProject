@@ -11,7 +11,7 @@ namespace DB_CourseProject.ViewModels
 {
     class ListOfEmployees : INotifyPropertyChanged
     {
-        private string id;
+        private int id;
         private string firstName;
         private string surname;
         private string secondName;

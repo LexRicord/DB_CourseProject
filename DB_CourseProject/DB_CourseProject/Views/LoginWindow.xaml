@@ -63,7 +63,7 @@
                 </PasswordBox.Effect>
             </PasswordBox>
         </StackPanel>
-        <Button Grid.Column="1" FontFamily="Century Gothic" Foreground="White" Template="{DynamicResource template3}" HorizontalContentAlignment="Center" FontSize="20" x:Name="loginButton" Click="registrationButton_Click" Grid.ColumnSpan="2" HorizontalAlignment="Center" Width="230" Margin="0,214,0,140"/>
+        <Button Grid.Column="1" FontFamily="Century Gothic" Foreground="White" Template="{DynamicResource template_enter}" HorizontalContentAlignment="Center" FontSize="20" x:Name="loginButton" Click="registrationButton_Click" Grid.ColumnSpan="2" HorizontalAlignment="Center" Width="230" Margin="0,214,0,140"/>
 
     </Grid>
 </Window>
