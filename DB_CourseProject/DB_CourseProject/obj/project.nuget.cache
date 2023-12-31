@@ -1,10 +1,21 @@
 {
   "version": 2,
-  "dgSpecHash": "Sjtt1zc1G00cLGzPAue7GYcyQZxAMlKzY0Uo9vgiPmP1pKSlc2LfY6e5fI+rTP7215ruKjE3w3OQ2ZKnkOFE0A==",
+  "dgSpecHash": "dPyvfC47MNVBod7IGckKHjQYQmXTsGamplrPpzq6+GnUWfedfzeoNZAjqs/8FwasO32Xh74kQn4Yk2/7SkSYmg==",
   "success": true,
   "projectFilePath": "D:\\repos\\DB_CourseProject\\DB_CourseProject\\DB_CourseProject\\DB_CourseProject.csproj",
   "expectedPackageFiles": [
-    "E:\\soft\\nuget\\communitytoolkit.mvvm\\8.2.1\\communitytoolkit.mvvm.8.2.1.nupkg.sha512"
+    "E:\\soft\\nuget\\communitytoolkit.mvvm\\8.2.1\\communitytoolkit.mvvm.8.2.1.nupkg.sha512",
+    "E:\\soft\\nuget\\microsoft.win32.systemevents\\6.0.0\\microsoft.win32.systemevents.6.0.0.nupkg.sha512",
+    "E:\\soft\\nuget\\oracle.manageddataaccess.core\\3.21.120\\oracle.manageddataaccess.core.3.21.120.nupkg.sha512",
+    "E:\\soft\\nuget\\system.configuration.configurationmanager\\6.0.0\\system.configuration.configurationmanager.6.0.0.nupkg.sha512",
+    "E:\\soft\\nuget\\system.diagnostics.performancecounter\\6.0.1\\system.diagnostics.performancecounter.6.0.1.nupkg.sha512",
+    "E:\\soft\\nuget\\system.directoryservices\\6.0.1\\system.directoryservices.6.0.1.nupkg.sha512",
+    "E:\\soft\\nuget\\system.directoryservices.protocols\\6.0.2\\system.directoryservices.protocols.6.0.2.nupkg.sha512",
+    "E:\\soft\\nuget\\system.drawing.common\\6.0.0\\system.drawing.common.6.0.0.nupkg.sha512",
+    "E:\\soft\\nuget\\system.security.accesscontrol\\6.0.0\\system.security.accesscontrol.6.0.0.nupkg.sha512",
+    "E:\\soft\\nuget\\system.security.cryptography.protecteddata\\6.0.0\\system.security.cryptography.protecteddata.6.0.0.nupkg.sha512",
+    "E:\\soft\\nuget\\system.security.permissions\\6.0.0\\system.security.permissions.6.0.0.nupkg.sha512",
+    "E:\\soft\\nuget\\system.windows.extensions\\6.0.0\\system.windows.extensions.6.0.0.nupkg.sha512"
   ],
   "logs": []
 }

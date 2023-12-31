@@ -5,15 +5,16 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:DB_CourseProject.Views"
         mc:Ignorable="d"
-        Title="Регистрация" Height="440" Width="500" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
+        Title="Регистрация" Height="499" Width="809" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
     <Grid>
         <Grid.Background >
             <ImageBrush ImageSource="D:\repos\DB_CourseProject\DB_CourseProject\DB_CourseProject\Images\12.jpg"/>
         </Grid.Background>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition Width="125*"></ColumnDefinition>
             <ColumnDefinition Width="250"></ColumnDefinition>
-            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition Width="109*"></ColumnDefinition>
+            <ColumnDefinition Width="16*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="324"></RowDefinition>
@@ -21,10 +22,10 @@
             <RowDefinition Height="0"></RowDefinition>
             <RowDefinition Height="136"></RowDefinition>
         </Grid.RowDefinitions>
-        <Rectangle Fill="#FFD8CCC1" HorizontalAlignment="Left" Opacity="0.7" Height="374" Margin="92,0,0,0" Stroke="Black" VerticalAlignment="Top" Width="310" Grid.ColumnSpan="3" Grid.RowSpan="2"/>
+        <Rectangle Fill="#FFD8CCC1" HorizontalAlignment="Left" Opacity="0.7" Height="464" Margin="75,0,0,46" Stroke="Black" VerticalAlignment="Bottom" Width="665" Grid.ColumnSpan="3" Grid.RowSpan="4" RenderTransformOrigin="0.508,0.499"/>
 
-        <StackPanel Grid.Column="1" Grid.Row="0">
-            <Label FontSize="25" FontFamily="Century Gothic" Height="64" Content="Логин (или номер)" VerticalContentAlignment="Center" Width="250" HorizontalAlignment="Center" UseLayoutRounding="False" HorizontalContentAlignment="Center" VerticalAlignment="Center" >
+        <StackPanel Grid.Row="0" Grid.ColumnSpan="2" Margin="131,0,128,12" Grid.RowSpan="2">
+            <Label FontSize="25" FontFamily="Century Gothic" Height="64" Content="Логин " VerticalContentAlignment="Center" Width="250" HorizontalAlignment="Center" UseLayoutRounding="False" HorizontalContentAlignment="Center" VerticalAlignment="Center" >
                 <Label.Effect>
                     <DropShadowEffect
                         ShadowDepth="4"
@@ -60,7 +61,7 @@
                         Opacity="0.5"/>
                 </PasswordBox.Effect>
             </PasswordBox>
-            <Label HorizontalAlignment="Center" FontFamily="Century Gothic" FontSize="25" Height="56" Content="Подтвердите пароль" Margin="-10,0,-13,0" Width="273" VerticalAlignment="Center" >
+            <Label HorizontalAlignment="Center" FontFamily="Century Gothic" FontSize="25" Height="56" Content="Подтвердите пароль" Margin="-10,0,-13,0" Width="273" >
                 <Label.Effect>
                     <DropShadowEffect
                         ShadowDepth="4"
@@ -78,9 +79,101 @@
                         Opacity="0.5"/>
                 </PasswordBox.Effect>
             </PasswordBox>
+            <Label FontSize="25" FontFamily="Century Gothic" Height="53" Content="Номер телефона" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" >
+                <Label.Effect>
+                    <DropShadowEffect
+                        ShadowDepth="4"
+                        Direction="330"
+                        Color="Black"
+                        Opacity="0.3"/>
+                </Label.Effect>
+            </Label>
+            <TextBox x:Name="phoneNumberInput" VerticalContentAlignment="Center" Height="33" FontSize="18" >
+                <TextBox.Effect>
+                    <DropShadowEffect
+                        ShadowDepth="4"
+                        Direction="330"
+                        Color="Black"
+                        Opacity="0.5"/>
+                </TextBox.Effect>
+            </TextBox>
         </StackPanel>
-        <Button Grid.Column="1" FontFamily="Century Gothic" Foreground="White"  Template="{DynamicResource Registration}" HorizontalContentAlignment="Center" FontSize="20" x:Name="registrationButton" Margin="10,299,10,25" Click="registrationButton_Click" Grid.RowSpan="2"/>
-
+        <Button Grid.Column="1" FontFamily="Century Gothic" Foreground="White"  Template="{DynamicResource Registration}" HorizontalContentAlignment="Center" FontSize="20" x:Name="registrationButton" Margin="0,0,0,68" Click="registerButton_Click" Grid.Row="3" Height="50" VerticalAlignment="Bottom" HorizontalAlignment="Center" Width="230"/>
+        <StackPanel Grid.Row="0" Grid.ColumnSpan="2" Margin="152,0,92,10" Grid.Column="1" Grid.RowSpan="2">
+            <Label FontSize="25" FontFamily="Century Gothic" Height="64" Content="Имя" VerticalContentAlignment="Center" Width="250" HorizontalAlignment="Center" UseLayoutRounding="False" HorizontalContentAlignment="Center" VerticalAlignment="Center" >
+                <Label.Effect>
+                    <DropShadowEffect
+                        ShadowDepth="4"
+                        Direction="330"
+                        Color="Black"
+                        Opacity="0.3"/>
+                </Label.Effect>
+            </Label>
+            <TextBox x:Name="nameInput" VerticalContentAlignment="Center" Height="33" FontSize="18" >
+                <TextBox.Effect>
+                    <DropShadowEffect
+                        ShadowDepth="4"
+                        Direction="330"
+                        Color="Black"
+                        Opacity="0.5"/>
+                </TextBox.Effect>
+            </TextBox>
+            <Label FontSize="25" FontFamily="Century Gothic" Height="53" Content="Фамилия" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center" >
+                <Label.Effect>
+                    <DropShadowEffect
+                        ShadowDepth="4"
+                        Direction="330"
+                        Color="Black"
+                        Opacity="0.3"/>
+                </Label.Effect>
+            </Label>
+            <TextBox x:Name="surnameInput" VerticalContentAlignment="Center" Height="33" FontSize="18" >
+                <TextBox.Effect>
+                    <DropShadowEffect
+                        ShadowDepth="4"
+                        Direction="330"
+                        Color="Black"
+                        Opacity="0.5"/>
+                </TextBox.Effect>
+            </TextBox>
+            <Label FontSize="25" FontFamily="Century Gothic" Height="53" Content="Отчество" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" >
+                <Label.Effect>
+                    <DropShadowEffect
+                        ShadowDepth="4"
+                        Direction="330"
+                        Color="Black"
+                        Opacity="0.3"/>
+                </Label.Effect>
+            </Label>
+            <TextBox x:Name="secondNameInput" VerticalContentAlignment="Center" Height="33" FontSize="18" >
+                <TextBox.Effect>
+                    <DropShadowEffect
+                        ShadowDepth="4"
+                        Direction="330"
+                        Color="Black"
+                        Opacity="0.5"/>
+                </TextBox.Effect>
+            </TextBox>
+            <Label FontSize="25" FontFamily="Century Gothic" Height="53" Content="Номер паспорта" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" RenderTransformOrigin="0.444,-0.569" >
+                <Label.Effect>
+                    <DropShadowEffect
+                        ShadowDepth="4"
+                        Direction="330"
+                        Color="Black"
+                        Opacity="0.3"/>
+                </Label.Effect>
+            </Label>
+            <TextBox x:Name="passNumInput" VerticalContentAlignment="Center" Height="33" FontSize="18" >
+                <TextBox.Effect>
+                    <DropShadowEffect
+                        ShadowDepth="4"
+                        Direction="330"
+                        Color="Black"
+                        Opacity="0.5"/>
+                </TextBox.Effect>
+            </TextBox>
+        </StackPanel>
+        <Button x:Name="exit" Foreground="White"  Template="{DynamicResource template_exit}"  FontSize="20" Margin="76,35,0,0" Content="Выход" Click="exit_Click" RenderTransformOrigin="-2.077,1.011" Grid.Column="2" Grid.Row="3" HorizontalAlignment="Left" Width="124" Height="45" VerticalAlignment="Top"/>
     </Grid>
 </Window>
 

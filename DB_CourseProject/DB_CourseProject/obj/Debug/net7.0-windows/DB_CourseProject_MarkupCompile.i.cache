@@ -10,11 +10,11 @@ none
 false
 TRACE;DEBUG;NET;NET7_0;NETCOREAPP
 D:\repos\DB_CourseProject\DB_CourseProject\DB_CourseProject\App.xaml
-5933827584
+172074467748
 
-102080932461
-199-208150352
-ResourceDictionaries\Triggers.xaml;Views\CheckModel.xaml;Views\LoginWindow.xaml;Views\MainWindow.xaml;Views\RegistrationWindow.xaml;
+29806100730
+202-1118991476
+MainWindow.xaml;ResourceDictionaries\Triggers.xaml;Views\Admin\AddEmployeeWindow.xaml;Views\Admin\AddServiceWindow.xaml;Views\Admin\AddTypeWindow.xaml;Views\Admin\AdminWindow.xaml;Views\Admin\NewMasterWindow.xaml;Views\CheckModel.xaml;Views\Client\ClientWindow.xaml;Views\Client\CreateOrderClient.xaml;Views\Client\EditPasswordWindow.xaml;Views\Employee\CreateOrderWindow.xaml;Views\Employee\EditPasswordWindow.xaml;Views\Employee\MasterWindow.xaml;Views\Employee\ReadyOrderWindow.xaml;Views\LoginWindow.xaml;Views\RegistrationWindow.xaml;
 
 True
 

@@ -1,19 +1,26 @@
-create or replace procedure addClient(in_name in Clients.Name%TYPE, in_surname in Clients.Surname%TYPE,
-in_secondname in Clients.SecondName%TYPE, in_login in Clients.Login%TYPE, in_password in Clients.PASSWORD%TYPE,
-in_passportnumber in Clients.PassportNumber%TYPE, in_postindex CLIENTS.PostIndex%type,
-in_phonenumber CLIENTS.Phonenumber%type)
-is
-    encode_pass nvarchar2(2000);
-begin
+create or replace PROCEDURE addClient(
+    in_email IN Clients.Email%TYPE,
+    in_password IN Clients.Password%TYPE,
+    in_name IN Clients.Name%TYPE DEFAULT '-',
+    in_surname IN Clients.Surname%TYPE DEFAULT '-',
+    in_secondname IN Clients.SecondName%TYPE DEFAULT '-',
+    in_passportnumber IN Clients.PassportNumber%TYPE DEFAULT NULL,
+    in_postindex IN Clients.PostIndex%TYPE DEFAULT 0,
+    in_phonenumber IN Clients.Phonenumber%TYPE DEFAULT NULL)
+IS
+    encode_pass NVARCHAR2(2000);
+BEGIN
     encode_pass := COURSE_CRYPT.ENCRYPTION_S(in_password);
-    if (in_passportnumber is null) then begin
-    insert into Clients(CLIENTS.Name, Surname, SecondName, LOGIN, CLIENTS.PASSWORD, PHONENUMBER, BALANCE)
-    values (in_name, in_surname, in_secondname, in_login , encode_pass, in_phonenumber, 0);
-    end;
-    else insert into Clients(CLIENTS.Name, Surname, SecondName, LOGIN, CLIENTS.PASSWORD, PHONENUMBER,
-                             BALANCE, PASSPORTNUMBER, POSTINDEX, Minutes, SMS)
-    values (in_name, in_surname, in_secondname, in_login , encode_pass, in_phonenumber,
-            20,in_passportnumber, in_postindex,50,100);
-    end if;
-  commit;
-end;
+
+    IF (in_passportnumber IS NULL) THEN
+        INSERT INTO Clients (Email, Password, Name, Surname, SecondName, Phonenumber, Balance, Role)
+        VALUES (in_email, encode_pass, in_name, in_surname, in_secondname, in_phonenumber, 0, 'client');
+    ELSE
+        INSERT INTO Clients (Email, Password, Name, Surname, SecondName, Phonenumber,
+                             Balance, PassportNumber, PostIndex, Role)
+        VALUES (in_email, encode_pass, in_name, in_surname, in_secondname, in_phonenumber,
+                20, in_passportnumber, in_postindex, 'client');
+    END IF;
+
+    COMMIT;
+END;

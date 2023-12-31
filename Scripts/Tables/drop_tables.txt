@@ -1,0 +1,21 @@
+drop table TypeOfAppliances;
+
+drop table Producers;
+
+drop table Models;
+ 
+drop table Services;
+
+drop table Clients;
+
+drop table Employees;
+
+drop table Masters;
+
+drop table OrderStates;
+
+drop table Orders;
+
+drop table ServicePacks;
+
+drop table BalanceHistory;

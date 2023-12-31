@@ -1,6 +1,6 @@
 create or replace procedure addMaster(in_name in EMPLOYEES.Name%TYPE, in_surname in EMPLOYEES.Surname%TYPE,
-in_secondname in EMPLOYEES.SecondName%TYPE, in_empllogin EMPLOYEES.LOGIN%type,
-in_typename in TYPEOFAPPLIANCES.TYPENAME%TYPE)
+in_secondname in EMPLOYEES.SecondName%TYPE, in_empllogin EMPLOYEES.EMAIL%type,
+in_typename in TYPEOFAPPLIANCES.NAME%TYPE)
 is
     invaliddata exception;
     curr_master_exists exception;
@@ -12,12 +12,11 @@ begin
     then raise invaliddata;
     end if;
     select TYPEOFAPPLIANCES.ID into type_id from TYPEOFAPPLIANCES
-        where TYPEOFAPPLIANCES.TYPENAME = in_typename;
+        where TYPEOFAPPLIANCES.NAME = in_typename;
     select EMPLOYEES.ID into empl_id from EMPLOYEES
         where EMPLOYEES.NAME = in_name and EMPLOYEES.SURNAME = in_surname
-          and EMPLOYEES.SECONDNAME = in_secondname and EMPLOYEES.LOGIN = in_empllogin;
-    insert into Masters(Masters.NUMBEROFCOMPLETEDORDERS,
-             Masters.MASTERSINCOME, Masters.EMPLOYEESID,Masters.SPECTYPEID)
+          and EMPLOYEES.SECONDNAME = in_secondname and EMPLOYEES.EMAIL = in_empllogin;
+    insert into Masters(Masters.NUMBEROFCOMPLETEDORDERS, Masters.NUMBEROFRETURNEDORDERS, Masters.EMPLOYEESID, Masters.SPECTYPEID)
     values (0, 0, empl_id, type_id);
     exception
     when curr_master_exists then

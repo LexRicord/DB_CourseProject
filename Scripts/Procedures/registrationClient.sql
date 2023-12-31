@@ -1,29 +1,34 @@
-create or replace procedure registrationClient(in_number in CLIENTS.PHONENUMBER%TYPE,
-in_password in Clients.Password%TYPE, in_login CLIENTS.Login%type)
+create or replace PROCEDURE registrationClient(
+    in_email IN Clients.Email%TYPE,
+    in_password IN Clients.Password%TYPE,
+    in_name IN Clients.Name%TYPE DEFAULT '-',
+    in_surname IN Clients.Surname%TYPE DEFAULT '-',
+    in_secondname IN Clients.SecondName%TYPE DEFAULT '-',
+    in_passportnumber IN Clients.PassportNumber%TYPE DEFAULT '-',
+    in_phonenumber IN Clients.Phonenumber%TYPE DEFAULT NULL)
 IS
-encode_password varchar2(2000);
-log_exists number;
-data_contains number;
-data_exists exception;
-login_exists exception;
-begin
-      encode_password := COURSE_CRYPT.ENCRYPTION_S(in_password);
-      select Count(*) into data_contains from CLIENTS
-        where Clients.PHONENUMBER = in_number;
-      if data_contains>0 then raise data_exists;
-      end if;
-      select Count(*) into log_exists from CLIENTS
-        where Clients.Login = in_login;
-      if log_exists>0 then raise login_exists;
-      end if;
-      if (log_exists=0 and data_contains=0) then insert into Clients(CLIENTS.Name, Surname, LOGIN, CLIENTS.PASSWORD, PHONENUMBER, BALANCE)
-        values ('User', 'User', in_login , encode_password, in_number, 0);
-      end if;
-exception
-    when data_exists then
-      raise_application_error(-20006, 'Номер телефона уже привязан к учетной записи');
-    when login_exists then
-      raise_application_error(-20042, 'Логин уже существует');
-      commit;
-end registrationClient;
-commit;
+    encode_password VARCHAR2(2000);
+    data_contains NUMBER;
+    data_exists EXCEPTION;
+BEGIN
+    encode_password := COURSE_CRYPT.ENCRYPTION_S(in_password);
+    SELECT COUNT(*) INTO data_contains FROM CLIENTS WHERE Clients.email = in_email;
+
+    IF data_contains > 0 THEN
+        RAISE data_exists;
+    END IF;
+
+    IF (data_contains = 0 AND in_passportnumber IS NULL) THEN 
+        INSERT INTO Clients (Email, Password, Name, Surname, SecondName, Phonenumber, Balance, Role)
+        VALUES (in_email, encode_password, in_name, in_surname, in_secondname, in_phonenumber, 0, 'client');
+    ELSE
+        INSERT INTO Clients (Email, Password, Name, Surname, SecondName, Phonenumber,
+                             Balance, PassportNumber, Role)
+        VALUES (in_email, encode_password, in_name, in_surname, in_secondname, in_phonenumber,
+                20, in_passportnumber, 'client');
+    END IF;
+
+EXCEPTION
+    WHEN data_exists THEN
+        RAISE_APPLICATION_ERROR(-20006, 'Email уже привязан к учетной записи');
+END registrationClient;

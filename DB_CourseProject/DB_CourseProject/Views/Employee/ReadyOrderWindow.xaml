@@ -1,0 +1,60 @@
+﻿<Window x:Class="DB_CourseProject.Views.Employee.ReadyOrderWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:DB_CourseProject.Views.Employee"
+        mc:Ignorable="d"
+        Title="Добавление типа приборов" Height="210" Width="280" WindowStartupLocation="CenterScreen">
+    <Grid>
+        <Grid.Background >
+            <ImageBrush ImageSource="D:\repos\DB_CourseProject\DB_CourseProject\DB_CourseProject\Images\14.png"/>
+        </Grid.Background>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="10"></ColumnDefinition>
+            <ColumnDefinition Width="39"></ColumnDefinition>
+            <ColumnDefinition Width="36"/>
+            <ColumnDefinition Width="175"/>
+            <ColumnDefinition Width="70"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="206"></RowDefinition>
+            <RowDefinition Height="150"/>
+            <RowDefinition Height="94"/>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
+        <Rectangle Fill="#FFE2F9F4" HorizontalAlignment="Left" Opacity="0.7" Height="344.053" Margin="2,0,0,0" Stroke="#FF747272" VerticalAlignment="Top" Width="269.973" Grid.ColumnSpan="5" Grid.RowSpan="2"/>
+
+        <StackPanel Grid.Column="1" Grid.Row="0" Grid.RowSpan="3" Grid.ColumnSpan="3">
+            <Label FontSize="20" FontFamily="Century Gothic" Height="40" HorizontalContentAlignment="Left" Margin="0,1,0,0" Content="Введите ID Заказа:">
+                <Label.Effect>
+                    <DropShadowEffect
+                        ShadowDepth="4"
+                        Direction="330"
+                        Color="Black"
+                        Opacity="0.3"/>
+                </Label.Effect>
+            </Label>
+            <TextBox x:Name="orderId" FontSize="20" Height="30">
+                <TextBox.Effect>
+                    <DropShadowEffect
+                        ShadowDepth="4"
+                        Direction="330"
+                        Color="Black"
+                        Opacity="0.5"/>
+                </TextBox.Effect>
+            </TextBox>
+        </StackPanel>
+        <Button x:Name="addTypesButton" Grid.Column="1" FontFamily="Century Gothic" Foreground="White"  Template="{DynamicResource template6}" Width="200" FontSize="18" Margin="27,103,23,49" Click="addTypesButton_Click" Grid.ColumnSpan="3">Добавить</Button>
+        <StackPanel Grid.Column="4" Grid.Row="0" Grid.RowSpan="3">
+            <Rectangle Height="185"></Rectangle>
+            <CheckBox x:Name="unlimMinutesCheck" HorizontalAlignment="Center" ToolTip="бесплатно: время звонка"/>
+            <Rectangle Height="55"></Rectangle>
+            <CheckBox x:Name="unlimSMSCheck" HorizontalAlignment="Center" ToolTip="бесплатно: чистка реестра"/>
+            <Rectangle  Height="55"></Rectangle>
+            <CheckBox x:Name="unlimMMSCheck" HorizontalAlignment="Center" ToolTip="бесплатно: антивирус"/>
+            <Rectangle Height="55"></Rectangle>
+            <CheckBox x:Name="unlimMegabytesCheck" HorizontalAlignment="Center" ToolTip="бесплатно: стресс-тест"/>
+        </StackPanel>
+    </Grid>
+</Window>

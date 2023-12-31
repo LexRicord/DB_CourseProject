@@ -5,9 +5,9 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:DB_CourseProject.Views"
         mc:Ignorable="d"
-               Title="Guest View - Check Model" Height="500" Width="800" WindowStartupLocation="CenterScreen" Activated="Window_Activated" >
+        Title="Guest View - Check Model" Height="500" Width="800" WindowStartupLocation="CenterScreen" Activated="Window_Activated">
     <Grid>
-        <Grid.Background >
+        <Grid.Background>
             <ImageBrush ImageSource="D:\repos\DB_CourseProject\DB_CourseProject\DB_CourseProject\Images\14.png"/>
         </Grid.Background>
 
@@ -16,23 +16,19 @@
                 <ImageBrush ImageSource="D:\repos\DB_CourseProject\DB_CourseProject\DB_CourseProject\Images\14.png"/>
             </TabControl.Background>
             <TabControl.Effect>
-                <DropShadowEffect
-                 ShadowDepth="4"
-                 Direction="330"
-                 Color="Black"
-                 Opacity="0.5"/>
+                <DropShadowEffect ShadowDepth="4" Direction="330" Color="Black" Opacity="0.5"/>
             </TabControl.Effect>
 
-            <TabItem Header="Сотрудники" x:Name="Employees" >
-
+            <TabItem Header="Модели" x:Name="Models">
                 <TabItem.Background>
                     <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
                         <GradientStop Color="#FF4C4242" Offset="0"/>
                         <GradientStop Color="#FFC3BDBD" Offset="1"/>
                     </LinearGradientBrush>
                 </TabItem.Background>
-                <Grid >
-                    <Grid.Background >
+
+                <Grid>
+                    <Grid.Background>
                         <ImageBrush ImageSource="D:\repos\DB_CourseProject\DB_CourseProject\DB_CourseProject\Images\14.png"/>
                     </Grid.Background>
                     <Grid.ColumnDefinitions>
@@ -44,15 +40,17 @@
                         <ColumnDefinition Width="452*"/>
                         <ColumnDefinition Width="66*"/>
                     </Grid.ColumnDefinitions>
-                    <DataGrid x:Name="employees" ScrollViewer.VerticalScrollBarVisibility="Visible" ScrollViewer.CanContentScroll="True" HorizontalAlignment="Left" Height="314" VerticalAlignment="Top" Width="766" EnableRowVirtualization="False" IsReadOnly="True" Opacity="0.9" AutoGenerateColumns="False" HeadersVisibility="Column" CanUserResizeColumns="False"
-							   CanUserResizeRows="False" CanUserReorderColumns="False" FontSize="18" Grid.ColumnSpan="7" Margin="6,55,0,0">
-                        <DataGrid.Resources>
-                            <Style BasedOn="{StaticResource {x:Type DataGridColumnHeader}}" TargetType="{x:Type DataGridColumnHeader}">
-                                <Setter Property="Background" Value="#FF13131D"  />
-                                <Setter Property="Foreground" Value="White"  />
-                            </Style>
 
+                    <DataGrid x:Name="models" ScrollViewer.VerticalScrollBarVisibility="Visible" ScrollViewer.CanContentScroll="True" HorizontalAlignment="Left" Height="314" VerticalAlignment="Top" Width="766" EnableRowVirtualization="False" IsReadOnly="True" Opacity="0.9" AutoGenerateColumns="False" HeadersVisibility="Column" CanUserResizeColumns="False"
+                               CanUserResizeRows="False" CanUserReorderColumns="False" FontSize="18" Grid.ColumnSpan="7" Margin="6,55,0,0">
+                        <DataGrid.Resources>
+
+                            <Style BasedOn="{StaticResource {x:Type DataGridColumnHeader}}" TargetType="{x:Type DataGridColumnHeader}">
+                                <Setter Property="Background" Value="#FF13131D"/>
+                                <Setter Property="Foreground" Value="White"/>
+                            </Style>
                         </DataGrid.Resources>
+
                         <DataGrid.Background>
                             <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                                 <GradientStop Color="#FFC7D4DE" Offset="0"/>
@@ -61,25 +59,24 @@
                         </DataGrid.Background>
 
                         <DataGrid.Columns>
-                            <DataGridTextColumn FontWeight="Bold"  Binding="{Binding login}"  Header="Логин" Width="*" />
-                            <DataGridTextColumn FontWeight="Bold"  Binding="{Binding surname}"  Header="Фамилия" Width="*" />
-                            <DataGridTextColumn Binding="{Binding name}" Header="Имя" Width="*"/>
-                            <DataGridTextColumn Binding="{Binding secondname}" Header="Отчество" Width="*"/>
-                            <DataGridTextColumn Binding="{Binding post}" Header="Должность" Width="*"/>
-
+                            <DataGridTextColumn FontWeight="Bold" Binding="{Binding ModelName}" Header="Модель" Width="*"/>
+                            <DataGridTextColumn FontWeight="Bold" Binding="{Binding DeviceType}" Header="Тип прибора" Width="*"/>
+                            <DataGridTextColumn FontWeight="Bold" Binding="{Binding Producer}" Header="Производитель" Width="*"/>
                         </DataGrid.Columns>
                     </DataGrid>
-                    <Button x:Name="addMaster" Foreground="White"  Template="{DynamicResource template4}"  FontSize="20" Click="addMaster_Click" Margin="6,391,12,10" Grid.ColumnSpan="5">Добавление мастера</Button>
-                    <TextBox Grid.Column="5" HorizontalAlignment="Left" Margin="164,10,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="210" Height="25"/>
-
+                    <ComboBox x:Name="modelComboBox" Height="44" Width="550" FontSize="20" HorizontalAlignment="Left" VerticalAlignment="Top" Padding="27,5,5,5" BorderThickness="1,1,1,0" RenderTransformOrigin="1,1" Margin="100,29,0,0">
+                        <ComboBox.Effect>
+                            <DropShadowEffect ShadowDepth="4" Direction="330" Color="Black" Opacity="0.5"/>
+                        </ComboBox.Effect>
+                    </ComboBox>
+                    <TextBox x:Name="ModelText" Grid.Column="3" HorizontalAlignment="Left" Margin="1,10,0,0" TextWrapping="Wrap" Text="&#xD;&#xA;" VerticalAlignment="Top" Width="210" Height="25" Grid.ColumnSpan="3" TextChanged="TextBox_TextChanged"/>
                 </Grid>
             </TabItem>
         </TabControl>
-        <Button x:Name="exit" Foreground="White"  Template="{DynamicResource template_exit}"  FontSize="20" Margin="655,429,25,10" Content="Добавление сотрудника" Click="exit_Click"/>
-        <Label Margin="10,0,-10,0">
-            <Label x:Name="nameModelLabel" Template="{DynamicResource template_label1}" Height="44" Width="550" FontSize="20" HorizontalAlignment="Left" VerticalAlignment="Top" Padding="27,5,5,5" BorderThickness="1,1,1,0" RenderTransformOrigin="1,1" Margin="100,29,0,0">
-                <TextBlock TextWrapping="Wrap" Text="Введите название модели: "/>
-            </Label>
-        </Label>
+
+        <Button x:Name="exit" Foreground="White" FontSize="20" Margin="650,414,0,0" Content="Выход" Click="exit_Click" HorizontalAlignment="Left" Width="120" Height="45" VerticalAlignment="Top"/>
+
+
+
     </Grid>
 </Window>

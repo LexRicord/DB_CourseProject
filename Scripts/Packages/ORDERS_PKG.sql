@@ -1,96 +1,133 @@
-create or replace PACKAGE ORDERS_PKG AS
-    CURSOR cur_ord
-    is
-        select Orders.id, Clients.PHONENUMBER,
-               CLIENTS.LOGIN, Orders.OrderRegDate,
-        MODELS.MODEL, Producers.Producer,  Services.NAME,
-        ORDERS.OrderPrice, Orders.OrderState, ORDERS.ORDERCOMPLDATE, EMPLOYEES.ID as "EID"
-        from ORDERS join SERVICES on Orders.SERVICEID=Services.ID
-        join Models on Orders.MODELID = Models.ID
-        join CLIENTS on ORDERS.CLIENTID = CLIENTS.ID
-        join EMPLOYEES on ORDERS.EMPLOYEEID = EMPLOYEES.ID
-        join PRODUCERS on MODELS.PRODUCERID = PRODUCERS.ID
-        where Orders.EMPLOYEEID is not null and Orders.ORDERSTATE=0 and EMPLOYEES.POST='Работник';
+CREATE OR REPLACE PACKAGE ORDERS_PKG AS
+    CURSOR cur_ord IS
+        SELECT Orders.id, Clients.Email,
+               orders.orderprice, ServicePacks.ServicePackOrder,
+               Orders.OrderRegDate, ORDERS.ORDERCOMPLDATE, OrderStates.StateDescription,
+               Orders.OrderDescription, MODELS.MODEL
+        FROM ORDERS JOIN OrderStates ON OrderStates.Id = Orders.OrderStateId
+        JOIN Models ON Orders.MODELID = Models.ID
+        JOIN CLIENTS ON ORDERS.CLIENTID = CLIENTS.ID
+        JOIN ServicePacks ON ServicePacks.ServicePackOrder = Orders.Id
+        WHERE Orders.EMPLOYEEID IS NULL AND Orders.ORDERSTATEID = 6;
 
-        CURSOR cur_ord2
-    is
-        select Orders.id, Clients.PHONENUMBER,
-               CLIENTS.LOGIN, Orders.OrderRegDate,
-        MODELS.MODEL, Producers.Producer,  Services.NAME,
-        ORDERS.OrderPrice, Orders.OrderState, ORDERS.ORDERCOMPLDATE, EMPLOYEES.ID as "EID"
-        from ORDERS join SERVICES on Orders.SERVICEID=Services.ID
-        join Models on Orders.MODELID = Models.ID
-        join CLIENTS on ORDERS.CLIENTID = CLIENTS.ID
-        join EMPLOYEES on ORDERS.EMPLOYEEID = EMPLOYEES.ID
-        join PRODUCERS on MODELS.PRODUCERID = PRODUCERS.ID
-        where Orders.EMPLOYEEID is not null and Orders.ORDERSTATE=1 and EMPLOYEES.POST='Работник';
+    CURSOR cur_ord2 IS
+        SELECT Orders.id, Clients.Email,
+               orders.orderprice, ServicePacks.ServicePackOrder,
+               Orders.OrderRegDate, ORDERS.ORDERCOMPLDATE, OrderStates.StateDescription,
+               Orders.OrderDescription, MODELS.MODEL, EMPLOYEES.ID AS "EID"
+        FROM ORDERS JOIN OrderStates ON OrderStates.Id = Orders.OrderStateId
+        JOIN Models ON Orders.MODELID = Models.ID
+        JOIN CLIENTS ON ORDERS.CLIENTID = CLIENTS.ID
+        JOIN ServicePacks ON ServicePacks.ServicePackOrder = Orders.Id
+        JOIN EMPLOYEES ON ORDERS.EMPLOYEEID = EMPLOYEES.ID
+        WHERE Orders.EMPLOYEEID IS NOT NULL AND Orders.ORDERSTATEID = 1 AND EMPLOYEES.Role = 'employee';
 
-    TYPE OrderType IS RECORD(or_id Orders.id%TYPE,
-    or_num CLIENTS.PHONENUMBER%TYPE,
-    cl_log CLIENTS.LOGIN%TYPE,
-    or_date Orders.OrderRegDate%TYPE,
-    or_model MODELS.MODEL%TYPE,
-    m_prod PRODUCERS.Producer%TYPE,
-    serv SERVICES.NAME%TYPE,
-    or_price ORDERS.OrderPrice%TYPE,
-    or_state Orders.OrderState%TYPE,
-    or_enddate Orders.ORDERCOMPLDATE%TYPE,
-    empl_id EMPLOYEES.ID%TYPE);
+    CURSOR cur_ord3 IS
+        SELECT Orders.id, Clients.Email,
+               orders.orderprice, ServicePacks.ServicePackOrder,
+               Orders.OrderRegDate, ORDERS.ORDERCOMPLDATE, OrderStates.StateDescription,
+               Orders.OrderDescription, MODELS.MODEL, EMPLOYEES.ID AS "EID"
+        FROM ORDERS JOIN OrderStates ON OrderStates.Id = Orders.OrderStateId
+        JOIN Models ON Orders.MODELID = Models.ID
+        JOIN CLIENTS ON ORDERS.CLIENTID = CLIENTS.ID
+        JOIN ServicePacks ON ServicePacks.ServicePackOrder = Orders.Id
+        JOIN EMPLOYEES ON ORDERS.EMPLOYEEID = EMPLOYEES.ID
+        WHERE Orders.EMPLOYEEID IS NOT NULL AND Orders.ORDERSTATEID = 2 AND EMPLOYEES.Role = 'employee';
+
+    TYPE OrderType IS RECORD(
+        or_id ORDERS.id%TYPE,
+        cl_log CLIENTS.EMAIL%TYPE,
+        or_price ORDERS.OrderPrice%TYPE,
+        sp_order ServicePacks.ServicePackOrder%TYPE,
+        or_regdate ORDERS.OrderRegDate%TYPE,
+        or_enddate ORDERS.ORDERCOMPLDATE%TYPE,
+        or_state OrderStates.StateDescription%TYPE,
+        or_descr ORDERS.OrderDescription%TYPE,
+        or_model MODELS.MODEL%TYPE,
+        empl_id EMPLOYEES.ID%TYPE
+    );
+    TYPE OrderTypeNoEmp IS RECORD(
+        or_id ORDERS.id%TYPE,
+        cl_log CLIENTS.EMAIL%TYPE,
+        or_price ORDERS.OrderPrice%TYPE,
+        sp_order ServicePacks.ServicePackOrder%TYPE,
+        or_regdate ORDERS.OrderRegDate%TYPE,
+        or_enddate ORDERS.ORDERCOMPLDATE%TYPE,
+        or_state OrderStates.StateDescription%TYPE,
+        or_descr ORDERS.OrderDescription%TYPE,
+        or_model MODELS.MODEL%TYPE
+    );
+
     TYPE TableOrderType IS TABLE OF OrderType;
+    TYPE TableOrderTypeNoEmp IS TABLE OF OrderTypeNoEmp;
 
-    function GET_ACCEPTED_ORDERS
-    return TableOrderType PIPELINED;
-    function GET_READY_ORDERS
-    return TableOrderType PIPELINED;
+    FUNCTION GET_NOT_ACCEPTED_ORDERS RETURN TableOrderTypeNoEmp PIPELINED;
+    FUNCTION GET_ACCEPTED_ORDERS RETURN TableOrderType PIPELINED;
+    FUNCTION GET_READY_ORDERS RETURN TableOrderType PIPELINED;
 
-    no_masters exception;
-    not_ready exception;
+    no_masters EXCEPTION;
+    not_ready EXCEPTION;
 END ORDERS_PKG;
 
-create or replace PACKAGE BODY ORDERS_PKG AS
-function GET_ACCEPTED_ORDERS
-return TableOrderType pipelined is
-    out_rec OrderType;
-    roww cur_ord%rowtype;
-    c number;
-Begin
-        select count(*) into c from MASTERS where MASTERS.EMPLOYEESID > 0;
-        if c < 1 then raise no_masters;
-        end if;
-        Open cur_ord;
-        loop
-            fetch cur_ord into roww;
-            exit when cur_ord%notfound;
-            PIPE ROW(roww);
-        End loop;
-        Close cur_ord;
-exception
-when no_masters then
-        raise_application_error(-20031, 'No masters / Мастеров не добавлено.');
-end GET_ACCEPTED_ORDERS;
+CREATE OR REPLACE PACKAGE BODY ORDERS_PKG AS
+    FUNCTION GET_NOT_ACCEPTED_ORDERS RETURN TableOrderTypeNoEmp PIPELINED IS
+        roww1 cur_ord%ROWTYPE;
+    BEGIN
+        OPEN cur_ord;
+        LOOP
+            FETCH cur_ord INTO roww1;
+            EXIT WHEN cur_ord%NOTFOUND;
+            PIPE ROW(roww1);
+        END LOOP;
+        CLOSE cur_ord;
+    END GET_NOT_ACCEPTED_ORDERS;
 
-function GET_READY_ORDERS
-return TableOrderType pipelined is
-    out_rec OrderType;
-    roww cur_ord2%rowtype;
-Begin
-        Open cur_ord2;
-        loop
-            fetch cur_ord2 into roww;
-            if roww.ORDERSTATE=0 then raise not_ready;
-            end if;
-            exit when cur_ord2%notfound;
-            PIPE ROW(roww);
-        End loop;
-        Close cur_ord2;
-exception
-when not_ready then
-        raise_application_error(-20032, 'Order not ready / Заказ не готов.');
-end GET_READY_ORDERS;
+    FUNCTION GET_ACCEPTED_ORDERS RETURN TableOrderType PIPELINED IS
+        roww2 cur_ord2%ROWTYPE;
+        c NUMBER;
+    BEGIN
+        SELECT COUNT(*) INTO c FROM MASTERS WHERE MASTERS.EMPLOYEESID > 0;
+
+        IF c < 1 THEN
+            RAISE no_masters;
+        END IF;
+
+        OPEN cur_ord2;
+        LOOP
+            FETCH cur_ord2 INTO roww2;
+            EXIT WHEN cur_ord2%NOTFOUND;
+            PIPE ROW(roww2);
+        END LOOP;
+        CLOSE cur_ord2;
+
+    EXCEPTION
+        WHEN no_masters THEN
+            RAISE_APPLICATION_ERROR(-20031, 'No masters / Мастеров не добавлено.');
+    END GET_ACCEPTED_ORDERS;
+
+    FUNCTION GET_READY_ORDERS RETURN TableOrderType PIPELINED IS
+        roww3 cur_ord3%ROWTYPE;
+    BEGIN
+        OPEN cur_ord3;
+        LOOP
+            FETCH cur_ord3 INTO roww3;
+            IF roww3.StateDescription != 'Заказ готов' THEN
+                RAISE not_ready;
+            END IF;
+            EXIT WHEN cur_ord3%NOTFOUND;
+            PIPE ROW(roww3);
+        END LOOP;
+        CLOSE cur_ord3;
+
+    EXCEPTION
+        WHEN not_ready THEN
+            RAISE_APPLICATION_ERROR(-20032, 'Order not ready / Заказ не готов.');
+    END GET_READY_ORDERS;
+
 END ORDERS_PKG;
-commit;
-declare
-BEGIN
-    select * from table(ORDERS_PKG.GET_accepted_Orders);
-    select * from table(ORDERS_PKG.GET_READY_ORDERS);
-end;
+
+    SELECT * FROM TABLE(ORDERS_PKG.GET_NOT_ACCEPTED_ORDERS);
+    SELECT * FROM TABLE(ORDERS_PKG.GET_ACCEPTED_ORDERS);
+    SELECT * FROM TABLE(ORDERS_PKG.GET_READY_ORDERS);
+
+

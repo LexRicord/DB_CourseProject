@@ -1,18 +1,25 @@
-create or replace procedure balanceReplenishment(in_id in CLIENTS.Id%TYPE, in_summ decimal)
-is
-curr_balance decimal(5,2);
-balanceOutOfRange exception;
-remid int;
-begin
-    select Remainders.RBalance into curr_balance from CLIENTS join Remainders
-        on CLIENTS.ID = REMAINDERS.CLIENTID where CLIENTS.ID=in_id;
-    if curr_balance+in_summ>999 then raise balanceOutOfRange;
-    end if;
-    select Remainders.ClientId into remid from REMAINDERS where Remainders.ClientId=in_id;
-    curr_balance:=in_summ+curr_balance;
-    update Remainders set Remainders.RBalance=curr_balance where Remainders.ClientId=remid;
-    exception
-  when balanceOutOfRange then
-  raise_application_error(-20010,'Залог не может быть больше 999 руб.');
-  commit;
-end balanceReplenishment;
+CREATE OR REPLACE PROCEDURE balanceReplenishment(in_id IN CLIENTS.Id%TYPE, in_summ NUMBER)
+IS
+    curr_balance NUMBER(7,2);
+    balanceOutOfRange EXCEPTION;
+    remid INT;
+BEGIN
+    BEGIN
+        SELECT Clients.Balance INTO curr_balance FROM CLIENTS 
+        WHERE CLIENTS.ID = in_id;
+
+        IF curr_balance + in_summ > 9999 THEN
+            RAISE balanceOutOfRange;
+        END IF;
+
+        UPDATE CLIENTS
+        SET Balance = curr_balance + in_summ
+        WHERE ID = in_id;
+
+    EXCEPTION
+        WHEN NO_DATA_FOUND THEN
+            RAISE_APPLICATION_ERROR(-20011, 'Клиент с ID ' || in_id || ' не найден.');
+        WHEN balanceOutOfRange THEN
+            RAISE_APPLICATION_ERROR(-20010, 'Баланс не может быть больше 9999 руб.');
+    END;
+END balanceReplenishment;

@@ -7,7 +7,43 @@
     </ApplicationDefinition>
   </ItemGroup>
   <ItemGroup>
+    <Compile Update="Views\Admin\AddEmployeeWindow.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\Admin\AddServiceWindow.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\Admin\AddTypeWindow.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\Admin\AdminWindow.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\Admin\NewMasterWindow.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="Views\CheckModel.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\Client\ClientWindow.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\Client\CreateOrderClient.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\Client\EditPasswordWindow.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\Employee\CreateOrderWindow.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\Employee\EditPasswordWindow.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\Employee\MasterWindow.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\Employee\ReadyOrderWindow.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="Views\LoginWindow.xaml.cs">
@@ -21,10 +57,46 @@
     <Page Update="ResourceDictionaries\Triggers.xaml">
       <SubType>Designer</SubType>
     </Page>
+    <Page Update="Views\Admin\AddEmployeeWindow.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\Admin\AddServiceWindow.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\Admin\AddTypeWindow.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\Admin\AdminWindow.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\Admin\NewMasterWindow.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="Views\CheckModel.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="Views\MainWindow.xaml">
+    <Page Update="Views\Client\ClientWindow.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\Client\CreateOrderClient.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\Client\EditPasswordWindow.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="MainWindow.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\Employee\CreateOrderWindow.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\Employee\EditPasswordWindow.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\Employee\MasterWindow.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\Employee\ReadyOrderWindow.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Views\LoginWindow.xaml">
