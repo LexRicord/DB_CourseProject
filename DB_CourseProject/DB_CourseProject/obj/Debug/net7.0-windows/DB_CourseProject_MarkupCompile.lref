@@ -16,4 +16,6 @@ FD:\repos\DB_CourseProject\DB_CourseProject\DB_CourseProject\Views\Employee\Read
 FD:\repos\DB_CourseProject\DB_CourseProject\DB_CourseProject\Views\LoginWindow.xaml;;
 FD:\repos\DB_CourseProject\DB_CourseProject\DB_CourseProject\Views\RegistrationWindow.xaml;;
 FD:\repos\DB_CourseProject\DB_CourseProject\DB_CourseProject\Views\Client\CreateOrderClient.xaml;;
+FD:\repos\DB_CourseProject\DB_CourseProject\DB_CourseProject\Views\Employee\MoreDetailsAboutOrder.xaml;;
+FD:\repos\DB_CourseProject\DB_CourseProject\DB_CourseProject\Views\Employee\MoreDetailsAboutNotAcceptedOrder.xaml;;
 

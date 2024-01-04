@@ -1,6 +1,6 @@
 CREATE OR REPLACE PACKAGE ORDERS_PKG AS
     CURSOR cur_ord IS
-        SELECT Orders.id, Clients.Email,
+        SELECT DISTINCT Orders.id, Clients.Email,
                orders.orderprice, ServicePacks.ServicePackOrder,
                Orders.OrderRegDate, ORDERS.ORDERCOMPLDATE, OrderStates.StateDescription,
                Orders.OrderDescription, MODELS.MODEL
@@ -11,7 +11,7 @@ CREATE OR REPLACE PACKAGE ORDERS_PKG AS
         WHERE Orders.EMPLOYEEID IS NULL AND Orders.ORDERSTATEID = 6;
 
     CURSOR cur_ord2 IS
-        SELECT Orders.id, Clients.Email,
+        SELECT DISTINCT Orders.id, Clients.Email,
                orders.orderprice, ServicePacks.ServicePackOrder,
                Orders.OrderRegDate, ORDERS.ORDERCOMPLDATE, OrderStates.StateDescription,
                Orders.OrderDescription, MODELS.MODEL, EMPLOYEES.ID AS "EID"
@@ -23,7 +23,7 @@ CREATE OR REPLACE PACKAGE ORDERS_PKG AS
         WHERE Orders.EMPLOYEEID IS NOT NULL AND Orders.ORDERSTATEID = 1 AND EMPLOYEES.Role = 'employee';
 
     CURSOR cur_ord3 IS
-        SELECT Orders.id, Clients.Email,
+        SELECT DISTINCT Orders.id, Clients.Email,
                orders.orderprice, ServicePacks.ServicePackOrder,
                Orders.OrderRegDate, ORDERS.ORDERCOMPLDATE, OrderStates.StateDescription,
                Orders.OrderDescription, MODELS.MODEL, EMPLOYEES.ID AS "EID"

@@ -58,3 +58,7 @@ D:\repos\DB_CourseProject\DB_CourseProject\DB_CourseProject\obj\Debug\net7.0-win
 D:\repos\DB_CourseProject\DB_CourseProject\DB_CourseProject\obj\Debug\net7.0-windows\Views\Employee\ReadyOrderWindow.baml
 D:\repos\DB_CourseProject\DB_CourseProject\DB_CourseProject\obj\Debug\net7.0-windows\Views\Client\CreateOrderClient.g.cs
 D:\repos\DB_CourseProject\DB_CourseProject\DB_CourseProject\obj\Debug\net7.0-windows\Views\Client\CreateOrderClient.baml
+D:\repos\DB_CourseProject\DB_CourseProject\DB_CourseProject\obj\Debug\net7.0-windows\Views\Employee\MoreDetailsAboutOrder.g.cs
+D:\repos\DB_CourseProject\DB_CourseProject\DB_CourseProject\obj\Debug\net7.0-windows\Views\Employee\MoreDetailsAboutOrder.baml
+D:\repos\DB_CourseProject\DB_CourseProject\DB_CourseProject\obj\Debug\net7.0-windows\Views\Employee\MoreDetailsAboutNotAcceptedOrder.g.cs
+D:\repos\DB_CourseProject\DB_CourseProject\DB_CourseProject\obj\Debug\net7.0-windows\Views\Employee\MoreDetailsAboutNotAcceptedOrder.baml

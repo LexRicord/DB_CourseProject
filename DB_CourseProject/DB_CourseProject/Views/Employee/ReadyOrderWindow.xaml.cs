@@ -3,18 +3,19 @@ using System.Data;
 using System.Windows;
 using System.Windows.Controls;
 using DB_CourseProject.DataBase;
+using DB_CourseProject.Models;
 using Oracle.ManagedDataAccess.Client;
 
 namespace DB_CourseProject.Views.Employee
 {
-    /// <summary>
-    /// Логика взаимодействия для AddService.xaml
-    /// </summary>
     public partial class ReadyOrderWindow : Window
     {
-        public ReadyOrderWindow()
+        private Info selectedInfo;
+
+        public ReadyOrderWindow(Info info)
         {
             InitializeComponent();
+            selectedInfo = info;
         }
 
         private void addTypesButton_Click(object sender, RoutedEventArgs e)
@@ -24,7 +25,7 @@ namespace DB_CourseProject.Views.Employee
             else
                 try
                 {
-                    using (OracleConnection connection = new OracleConnection(OracleDatabaseConnection.employeeConn))
+                    using (OracleConnection connection = new OracleConnection(OracleDatabaseConnection.adminConn))
                     {
                         connection.Open();
                         OracleParameter types = new OracleParameter
@@ -43,14 +44,23 @@ namespace DB_CourseProject.Views.Employee
                             var reader = command.ExecuteReader();
                             DataTable dt = new DataTable();
                             dt.Load(reader);
+                            MessageBox.Show("Заказ готов!");
+                            this.Close();
                         }
                     }
                 }
                 catch (OracleException ex)
                 {
                     MessageBox.Show(ex.Message);
-
                 }
+        }
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                orderId.Text = selectedInfo.Order_id.ToString();
+            }
+            catch (Exception) { }
         }
 
         private void typesText1_SelectionChanged(object sender, SelectionChangedEventArgs e)

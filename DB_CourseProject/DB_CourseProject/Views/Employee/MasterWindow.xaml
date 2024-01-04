@@ -24,14 +24,15 @@
             <Button x:Name="createOrder" Foreground="White" FontSize="15" FontFamily="Helvetica"  Margin="0 0 0 0" Click="createOrder_Click" Template="{DynamicResource template_createOrder}" />
             <Button x:Name="editPassword" Foreground="White" FontSize="15" FontFamily="Helvetica"  Margin="0 0 0 0" Click="editPassword_Click" Template="{DynamicResource template_updatePassword}" />
             <Button x:Name="readyButt"  FontSize="15" FontFamily="Helvetica"  Click="readyButt_Click" Foreground="White" Template="{DynamicResource template_sendToReady}"/>
+            <Button x:Name="takeOrder"  FontSize="15" FontFamily="Helvetica"  Click="takeOrder_Click" Foreground="White" Template="{DynamicResource template_takeOrder}"/>
         </StackPanel>
         <Button x:Name="exit" Foreground="White"  FontSize="15" FontFamily="Helvetica"  VerticalAlignment="Bottom" Click="Button_Click" Template="{DynamicResource template_exit}"/>
         <TabControl Grid.Column="1" VerticalAlignment="Top"  >
             <TabItem Header="Непринятые заказы" FontFamily="Helvetica" FontSize="15" MouseLeftButtonUp="TabItem_MouseLeftButtonUp_2" Background="#FF8B8484" Margin="-2,0,-2,0" Height="22" VerticalAlignment="Top">
-
                 <TabItem.Content>
                     <DataGrid x:Name="notAcceptedOrders" IsReadOnly="True" AutoGenerateColumns="False" HeadersVisibility="Column" CanUserResizeColumns="False"
-CanUserResizeRows="False" CanUserReorderColumns="False" Height="1500" VerticalScrollBarVisibility="Visible" SelectionChanged="readyOrders_SelectionChanged">
+                        CanUserResizeRows="False" CanUserReorderColumns="False" Height="1500" VerticalScrollBarVisibility="Visible" SelectionChanged="moreNotAccepted_Click"
+                              MouseDoubleClick="notAcceptedOrders_MouseDoubleClick" MouseUp="notAcceptedOrders_MouseUp">
                         <DataGrid.Resources>
                             <Style BasedOn="{StaticResource {x:Type DataGridColumnHeader}}" TargetType="{x:Type DataGridColumnHeader}">
                                 <Setter Property="Background" Value="#FF2C2828" />
@@ -54,7 +55,6 @@ CanUserResizeRows="False" CanUserReorderColumns="False" Height="1500" VerticalSc
                         </DataGrid.ContextMenu>
                         <DataGrid.Columns>
                             <DataGridTextColumn x:Name="ClientEmail_notAccepted" Binding="{Binding Path=ClientEmail}" Header="Логин заказчика" Width="Auto"/>
-                            <DataGridTextColumn x:Name="E_id_notAccepted" Binding="{Binding Path=E_id}" Header="Id работника" Width="Auto"/>
                             <DataGridTextColumn x:Name="Model_notAccepted" Binding="{Binding Path=Model}" Header="Устройство" Width="Auto"/>
                             <DataGridTextColumn x:Name="ServicePackOrder_notAccepted" Binding="{Binding Path=ServicePackOrder}" Header="Номер набора услуг" Width="Auto"/>
                             <DataGridTextColumn x:Name="OrderPrice_notAccepted" Binding="{Binding Path=OrderPrice}" Header="Стоимость" Width="Auto"/>
@@ -69,7 +69,8 @@ CanUserResizeRows="False" CanUserReorderColumns="False" Height="1500" VerticalSc
             <TabItem Header="Принятые заказы" FontSize="15" FontFamily="Helvetica" MouseLeftButtonUp="TabItem_MouseLeftButtonUp" Background="#FF8B8484" >
                 <TabItem.Content>
                     <DataGrid x:Name="acceptedOrders" IsReadOnly="True" AutoGenerateColumns="False" HeadersVisibility="Column" CanUserResizeColumns="False"
-        CanUserResizeRows="False" CanUserReorderColumns="False" Height="1500" VerticalScrollBarVisibility="Visible" SelectionChanged="acceptedOrders_SelectionChanged">
+                        CanUserResizeRows="False" CanUserReorderColumns="False" Height="1500" VerticalScrollBarVisibility="Visible" SelectionChanged="acceptedOrders_SelectionChanged"
+                              MouseDoubleClick="acceptedOrders_MouseDoubleClick" MouseUp="acceptedOrders_MouseUp">
                         <DataGrid.Resources>
                             <Style BasedOn="{StaticResource {x:Type DataGridColumnHeader}}" TargetType="{x:Type DataGridColumnHeader}">
                                 <Setter Property="Background" Value="#FF2C2828" />
@@ -105,10 +106,10 @@ CanUserResizeRows="False" CanUserReorderColumns="False" Height="1500" VerticalSc
                 </TabItem.Content>
             </TabItem>
             <TabItem Header="Готовые заказы" FontFamily="Helvetica" FontSize="15" MouseLeftButtonUp="TabItem_MouseLeftButtonUp_2" Background="#FF8B8484" Margin="-2,0">
-
                 <TabItem.Content>
                     <DataGrid x:Name="readyOrders" IsReadOnly="True" AutoGenerateColumns="False" HeadersVisibility="Column" CanUserResizeColumns="False"
-CanUserResizeRows="False" CanUserReorderColumns="False" Height="1500" VerticalScrollBarVisibility="Visible" SelectionChanged="readyOrders_SelectionChanged">
+                        CanUserResizeRows="False" CanUserReorderColumns="False" Height="1500" VerticalScrollBarVisibility="Visible" SelectionChanged="readyOrders_SelectionChanged"
+                              MouseDoubleClick="readyOrders_MouseDoubleClick">
                         <DataGrid.Resources>
                             <Style BasedOn="{StaticResource {x:Type DataGridColumnHeader}}" TargetType="{x:Type DataGridColumnHeader}">
                                 <Setter Property="Background" Value="#FF2C2828" />

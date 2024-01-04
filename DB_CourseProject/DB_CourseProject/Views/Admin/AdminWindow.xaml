@@ -5,14 +5,13 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:DB_CourseProject.Views.Admin"
         mc:Ignorable="d"
-        Title="AdminWindow" Height="500" Width="800" WindowStartupLocation="CenterScreen" Activated="Window_Activated" >
+        Title="AdminWindow" Height="638" Width="974" WindowStartupLocation="CenterScreen" Activated="Window_Activated">
     <Grid>
-
-        <Grid.Background >
+        <Grid.Background>
             <ImageBrush ImageSource="D:\repos\DB_CourseProject\DB_CourseProject\DB_CourseProject\Images\14.png"/>
         </Grid.Background>
 
-        <TabControl HorizontalAlignment="Left" Height="422" Margin="0" VerticalAlignment="Top" Width="792" FontSize="20" FontFamily="Century Gothic">
+        <TabControl HorizontalAlignment="Stretch" VerticalAlignment="Stretch" FontSize="20" FontFamily="Century Gothic">
             <TabControl.Background>
                 <ImageBrush ImageSource="D:\repos\DB_CourseProject\DB_CourseProject\DB_CourseProject\Images\14.png"/>
             </TabControl.Background>
@@ -32,7 +31,7 @@
                         <GradientStop Color="#FFC3BDBD" Offset="1"/>
                     </LinearGradientBrush>
                 </TabItem.Background>
-                <Grid >
+                <Grid Height="620" Width="974" >
                     <Grid.Background >
                         <ImageBrush ImageSource="D:\repos\DB_CourseProject\DB_CourseProject\DB_CourseProject\Images\14.png"/>
                     </Grid.Background>
@@ -41,11 +40,12 @@
                         <ColumnDefinition Width="105*"/>
                         <ColumnDefinition Width="30*"/>
                         <ColumnDefinition Width="17*"/>
-                        <ColumnDefinition Width="452*"/>
+                        <ColumnDefinition Width="174*"/>
+                        <ColumnDefinition Width="278*"/>
                         <ColumnDefinition Width="66*"/>
                     </Grid.ColumnDefinitions>
-                    <DataGrid x:Name="employees" ScrollViewer.VerticalScrollBarVisibility="Visible" ScrollViewer.CanContentScroll="True" HorizontalAlignment="Left" Height="345" VerticalAlignment="Top" Width="767" EnableRowVirtualization="False" IsReadOnly="True" Opacity="0.9" AutoGenerateColumns="False" HeadersVisibility="Column" CanUserResizeColumns="False"
-							   CanUserResizeRows="False" CanUserReorderColumns="False" FontSize="18" Grid.ColumnSpan="6" Margin="-2,0,0,0">
+                    <DataGrid x:Name="employees" ScrollViewer.VerticalScrollBarVisibility="Visible" ScrollViewer.CanContentScroll="True" Height="453" VerticalAlignment="Top" EnableRowVirtualization="False" IsReadOnly="True" Opacity="0.9" AutoGenerateColumns="False" HeadersVisibility="Column" CanUserResizeColumns="False"
+							   CanUserResizeRows="False" CanUserReorderColumns="False" FontSize="18" Grid.ColumnSpan="7" Margin="10,45,0,0" HorizontalAlignment="Left" Width="923">
                         <DataGrid.Resources>
                             <Style BasedOn="{StaticResource {x:Type DataGridColumnHeader}}" TargetType="{x:Type DataGridColumnHeader}">
                                 <Setter Property="Background" Value="#FF13131D"  />
@@ -69,8 +69,8 @@
 
                         </DataGrid.Columns>
                     </DataGrid>
-                    <Button x:Name="addEmployee" Foreground="White"  Template="{DynamicResource template4}"  FontSize="20" Click="addEmployee_Click" Margin="86,345,380,0" Grid.ColumnSpan="5">Добавление сотрудника</Button>
-                    <Button x:Name="addMaster" Foreground="White"  Template="{DynamicResource template_addMaster}"  FontSize="20" Click="addMaster_Click" Margin="198,345,0,0" Grid.Column="4">Добавление мастера</Button>
+                    <Button x:Name="addEmployee" Foreground="White"  Template="{DynamicResource template4}"  FontSize="20" Click="addEmployee_Click" Margin="0,520,176,0" Grid.ColumnSpan="5" Content="Добавление сотрудника" HorizontalAlignment="Right" Width="350" Height="50" VerticalAlignment="Top"/>
+                    <Button x:Name="addMaster" Foreground="White"  Template="{DynamicResource template_addMaster}"  FontSize="20" Click="addMaster_Click" Margin="139,520,0,0" Grid.Column="4" Content="Добавление мастера" Grid.ColumnSpan="2" Height="50" VerticalAlignment="Top" HorizontalAlignment="Left" Width="350"/>
 
                 </Grid>
             </TabItem>
@@ -88,8 +88,8 @@
                         <ColumnDefinition Width="49*"/>
                         <ColumnDefinition Width="1139*"/>
                     </Grid.ColumnDefinitions>
-                    <DataGrid x:Name="tarsDG" HorizontalAlignment="Left"  Height="343" VerticalAlignment="Top" Width="740" EnableRowVirtualization="False" IsReadOnly="True" Opacity="0.9" AutoGenerateColumns="False" HeadersVisibility="Column" CanUserResizeColumns="False"
-							   CanUserResizeRows="False" CanUserReorderColumns="False" FontSize="18" Margin="22,0,0,0" Grid.ColumnSpan="2">
+                    <DataGrid x:Name="tarsDG" HorizontalAlignment="Left"  Height="476" VerticalAlignment="Top" Width="905" EnableRowVirtualization="False" IsReadOnly="True" Opacity="0.9" AutoGenerateColumns="False" HeadersVisibility="Column" CanUserResizeColumns="False"
+							   CanUserResizeRows="False" CanUserReorderColumns="False" FontSize="18" Margin="20,10,0,0" Grid.ColumnSpan="2">
                         <DataGrid.Resources>
                             <Style BasedOn="{StaticResource {x:Type DataGridColumnHeader}}" TargetType="{x:Type DataGridColumnHeader}">
                                 <Setter Property="Background" Value="#FF13131D"  />
@@ -109,7 +109,7 @@
                             <DataGridTextColumn Binding="{Binding typename}" Header="Тип прибора" Width="*"/>
                         </DataGrid.Columns>
                     </DataGrid>
-                    <Button x:Name="addService" Foreground="White"  Template="{DynamicResource template5}"  FontSize="20" Click="addService_Click" Margin="248,343,284,0" Grid.Column="1" >Добавление услуги</Button>
+                    <Button x:Name="addService" Foreground="White"  Template="{DynamicResource template5}"  FontSize="20" Click="addService_Click" Margin="248,485,284,0" Grid.Column="1" Height="50" Width="350" >Добавление услуги</Button>
 
                 </Grid>
             </TabItem>
@@ -124,13 +124,14 @@
                 <Grid >
 
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="32*"/>
-                        <ColumnDefinition Width="143*"/>
-                        <ColumnDefinition Width="14*"/>
-                        <ColumnDefinition Width="597*"/>
+                        <ColumnDefinition Width="39*"/>
+                        <ColumnDefinition Width="176*"/>
+                        <ColumnDefinition Width="17*"/>
+                        <ColumnDefinition Width="110*"/>
+                        <ColumnDefinition Width="625*"/>
                     </Grid.ColumnDefinitions>
-                    <DataGrid x:Name="typesDG" HorizontalAlignment="Left"  Height="343" VerticalAlignment="Top" Width="561" EnableRowVirtualization="False" IsReadOnly="True" Opacity="0.9" AutoGenerateColumns="False" HeadersVisibility="Column" CanUserResizeColumns="False"
-							   CanUserResizeRows="False" CanUserReorderColumns="False" FontSize="18" Grid.Column="1" Margin="81,0,0,0" Grid.ColumnSpan="3" SelectionChanged="tarsDG_SelectionChanged">
+                    <DataGrid x:Name="typesDG" HorizontalAlignment="Left"  Height="499" VerticalAlignment="Top" Width="879" EnableRowVirtualization="False" IsReadOnly="True" Opacity="0.9" AutoGenerateColumns="False" HeadersVisibility="Column" CanUserResizeColumns="False"
+							   CanUserResizeRows="False" CanUserReorderColumns="False" FontSize="18" Grid.Column="1" Grid.ColumnSpan="4" SelectionChanged="tarsDG_SelectionChanged" Margin="0,10,0,0">
                         <DataGrid.Resources>
                             <Style BasedOn="{StaticResource {x:Type DataGridColumnHeader}}" TargetType="{x:Type DataGridColumnHeader}">
                                 <Setter Property="Background" Value="#FF13131D"  />
@@ -150,7 +151,7 @@
                             <DataGridTextColumn Binding="{Binding NumOfMasters}" Header="Количество мастеров" Width="*"/>
                         </DataGrid.Columns>
                     </DataGrid>
-                    <Button x:Name="addTypesOfAppliance" Foreground="White"  Template="{DynamicResource template55}"  FontSize="20" Click="addTypesOfAppliance_Click" Margin="91,343,284,0" Grid.Column="3" >Добавление типа прибора</Button>
+                    <Button x:Name="addTypesOfAppliance" Foreground="White"  Template="{DynamicResource template55}"  FontSize="20" Click="addTypesOfAppliance_Click" Margin="76,526,309,10" Grid.Column="3" Height="50" Width="350" Grid.ColumnSpan="2" >Добавление типа прибора</Button>
 
                 </Grid>
             </TabItem>
@@ -167,8 +168,8 @@
                         <ColumnDefinition Width="49*"/>
                         <ColumnDefinition Width="1139*"/>
                     </Grid.ColumnDefinitions>
-                    <DataGrid x:Name="mastDG" HorizontalAlignment="Left"  Height="375" VerticalAlignment="Top" Width="670" EnableRowVirtualization="False" IsReadOnly="True" Opacity="0.9" AutoGenerateColumns="False" HeadersVisibility="Column" CanUserResizeColumns="False"
-							   CanUserResizeRows="False" CanUserReorderColumns="False" FontSize="18" Grid.Column="1" Margin="20,0,0,0">
+                    <DataGrid x:Name="mastDG" HorizontalAlignment="Left"  Height="523" VerticalAlignment="Top" Width="848" EnableRowVirtualization="False" IsReadOnly="True" Opacity="0.9" AutoGenerateColumns="False" HeadersVisibility="Column" CanUserResizeColumns="False"
+							   CanUserResizeRows="False" CanUserReorderColumns="False" FontSize="18" Grid.Column="1" Margin="10,10,0,0">
                         <DataGrid.Resources>
                             <Style BasedOn="{StaticResource {x:Type DataGridColumnHeader}}" TargetType="{x:Type DataGridColumnHeader}">
                                 <Setter Property="Background" Value="#FF13131D"  />
@@ -186,14 +187,14 @@
                             <DataGridTextColumn FontWeight="Bold"  Binding="{Binding Login}"  Header="Логин" Width="*" />
                             <DataGridTextColumn Binding="{Binding Surname}" Header="Фамилия" Width="*"/>
                             <DataGridTextColumn Binding="{Binding NumOfCompOrders}" Header="Успешные заказы" Width="*"/>
-                            <DataGridTextColumn Binding="{Binding NumOfRetOrders}" Header="Возвращённые заказы" Width="*"/>
+                            <DataGridTextColumn Binding="{Binding NumOfRetOrders}" Header="Прибыль" Width="*"/>
                             <DataGridTextColumn Binding="{Binding TypeName}" Header="Специализация" Width="*"/>
                         </DataGrid.Columns>
                     </DataGrid>
                 </Grid>
             </TabItem>
 
-            <TabItem Header="Услуги(Анализ)" x:Name="Services">
+            <TabItem Header="Услуги(Анализ)" x:Name="ServicesAnalysis">
                 <TabItem.Background>
                     <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
                         <GradientStop Color="#FF4C4242" Offset="0"/>
@@ -206,7 +207,7 @@
                         <ColumnDefinition Width="49*"/>
                         <ColumnDefinition Width="1139*"/>
                     </Grid.ColumnDefinitions>
-                    <DataGrid x:Name="servDG" HorizontalAlignment="Left"  Height="343" VerticalAlignment="Top" Width="740" EnableRowVirtualization="False" IsReadOnly="True" Opacity="0.9" AutoGenerateColumns="False" HeadersVisibility="Column" CanUserResizeColumns="False"
+                    <DataGrid x:Name="servDG" HorizontalAlignment="Left"  Height="530" VerticalAlignment="Top" Width="915" EnableRowVirtualization="False" IsReadOnly="True" Opacity="0.9" AutoGenerateColumns="False" HeadersVisibility="Column" CanUserResizeColumns="False"
 							   CanUserResizeRows="False" CanUserReorderColumns="False" FontSize="18" Margin="22,0,0,0" Grid.ColumnSpan="2">
                         <DataGrid.Resources>
                             <Style BasedOn="{StaticResource {x:Type DataGridColumnHeader}}" TargetType="{x:Type DataGridColumnHeader}">
@@ -222,15 +223,21 @@
                             </LinearGradientBrush>
                         </DataGrid.Background>
                         <DataGrid.Columns>
-                            <DataGridTextColumn FontWeight="Bold"  Binding="{Binding Name}"  Header="Услуга" Width="*" />
-                            <DataGridTextColumn Binding="{Binding Price}" Header="Цена" Width="*"/>
-                            <DataGridTextColumn Binding="{Binding typename}" Header="Тип прибора" Width="*"/>
+                            <DataGridTextColumn FontWeight="Bold"  Binding="{Binding ServiceName}"  Header="Услуга" Width="*" />
+                            <DataGridTextColumn Binding="{Binding OrderId}" Header="Id заказа" Width="*"/>
+                            <DataGridTextColumn Binding="{Binding TotalOrders}" Header="Всего заказов" Width="*"/>
+                            <DataGridTextColumn Binding="{Binding UniqueClients}" Header="Уникальные клиенты" Width="*"/>
+                            <DataGridTextColumn Binding="{Binding AvgServicePrice}" Header="Средняя цена" Width="*"/>
+                            <DataGridTextColumn Binding="{Binding MaxServicePrice}" Header="Максимальная цена" Width="*"/>
+                            <DataGridTextColumn Binding="{Binding MinServicePrice}" Header="Минимальная цена" Width="*"/>
+                            <DataGridTextColumn Binding="{Binding TotalEstimatedCompletionTime}" Header="Суммарное время выполнения" Width="*"/>
                         </DataGrid.Columns>
                     </DataGrid>
 
                 </Grid>
             </TabItem>
         </TabControl>
-        <Button x:Name="exit" Foreground="White"  Template="{DynamicResource template7}"  FontSize="16" Margin="675,0,15,431" Content="Добавление сотрудника" Click="exit_Click"/>
+
+        <Button x:Name="exit" Foreground="White" Template="{DynamicResource template7}" FontSize="16" Content="Добавление сотрудника" Click="exit_Click" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,10,10"/>
     </Grid>
 </Window>

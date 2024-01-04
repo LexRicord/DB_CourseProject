@@ -28,6 +28,11 @@ namespace DB_CourseProject.Models
             ServicePackOrder = spackorder;
         }
 
+        public Info(int order)
+        {
+            Order_id = order;
+        }
+
         public Info(int order_id, string clientEmail, int price, string spackorder, string orderRegDate, 
             string orderEndDate, string orderState, string desc, string model, int emp_id)
         {
@@ -54,6 +59,19 @@ namespace DB_CourseProject.Models
             OrderState = orderState;
             OrderDescription = desc;
             Model = model;
+        }
+        public Info(int order_id, int price, string spackorder, string orderRegDate,
+            string orderEndDate, string orderState, string desc, string model, int emp_id)
+        {
+            Order_id = order_id;
+            OrderPrice = price;
+            ServicePackOrder = spackorder;
+            OrderRegDate = orderRegDate;
+            OrderEndDate = orderEndDate;
+            OrderState = orderState;
+            OrderDescription = desc;
+            Model = model;
+            E_id = emp_id;
         }
     }
 }

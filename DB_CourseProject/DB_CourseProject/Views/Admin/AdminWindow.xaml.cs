@@ -1,6 +1,7 @@
 ﻿using System;
 using System.ComponentModel;
 using System.Data;
+using System.Reflection.PortableExecutable;
 using System.Windows;
 using System.Windows.Controls;
 using DB_CourseProject.DataBase;
@@ -15,9 +16,11 @@ namespace DB_CourseProject.Views.Admin
         private Services tars;
         private Types types;
         private Masters mast;
+        private ServiceAnalysis servAnalysisItem;
         public BindingList<Services> tarsList = new BindingList<Services>();
         public BindingList<Types> typesList = new BindingList<Types>();
         public BindingList<Masters> mastList = new BindingList<Masters>();
+        public BindingList<ServiceAnalysis> servList = new BindingList<ServiceAnalysis>();
         private CurrentEmployee empl;
         public BindingList<CurrentEmployee> emplList = new BindingList<CurrentEmployee>();
         public AdminWindow()
@@ -31,6 +34,8 @@ namespace DB_CourseProject.Views.Admin
             typesDG.ItemsSource = typesList;
             GetMasters();
             mastDG.ItemsSource = mastList;
+            GetServices();
+            servDG.ItemsSource = servList;
         }
 
         private void addEmployee_Click(object sender, RoutedEventArgs e)
@@ -200,8 +205,11 @@ namespace DB_CourseProject.Views.Admin
 
                         foreach (DataRow row in dt.Rows)
                         {
-                            mast = new Masters(row["Email"].ToString(), row["Surname"].ToString(), row["NUMBEROFCOMPLETEDORDERS"].ToString(), 
-                                row["NUMBEROFRETURNEDORDERS"].ToString(), row["TYPENAME"].ToString());
+                            mast = new Masters(row["Email"].ToString(), 
+                                row["Surname"].ToString(),
+                                Convert.ToInt32(row["NUMBEROFCOMPLETEDORDERS"]), 
+                                Convert.ToInt32(row["NUMBEROFRETURNEDORDERS"]), 
+                                row["TYPENAME"].ToString());
                             mastList.Add(mast);
                         }
 
@@ -214,37 +222,39 @@ namespace DB_CourseProject.Views.Admin
             }
 
         }
-        private void GetSpec()
+        private void GetServices()
         {
-            mastList.Clear();
+            servList.Clear();
             try
             {
                 using (OracleConnection connection = new OracleConnection(OracleDatabaseConnection.adminConn))
                 {
                     connection.Open();
-                    OracleParameter curs = new OracleParameter
-                    {
-                        ParameterName = "curs",
-                        Direction = ParameterDirection.Output,
-                        OracleDbType = OracleDbType.RefCursor,
-                    };
 
-                    using (OracleCommand command = new OracleCommand("getMasters"))
+                    using (OracleCommand cmd = new OracleCommand("GetServiceAnalysis", connection))
                     {
-                        command.Connection = connection;
-                        command.CommandType = CommandType.StoredProcedure;
-                        command.Parameters.AddRange(new OracleParameter[] { curs });
-                        var reader = command.ExecuteReader();
-                        DataTable dt = new DataTable();
-                        dt.Load(reader);
+                        cmd.CommandType = CommandType.StoredProcedure;
 
-                        foreach (DataRow row in dt.Rows)
+                        OracleParameter cursorParam = new OracleParameter("p_cursor", OracleDbType.RefCursor, ParameterDirection.Output);
+                        cmd.Parameters.Add(cursorParam);
+
+                        using (OracleDataReader reader = cmd.ExecuteReader())
                         {
-                            mast = new Masters(row["Email"].ToString(), row["Surname"].ToString(), row["NUMBEROFCOMPLETEDORDERS"].ToString(),
-                                row["NUMBEROFRETURNEDORDERS"].ToString(), row["TYPENAME"].ToString());
-                            mastList.Add(mast);
+                            while (reader.Read())
+                            {
+                                ServiceAnalysis servAnalysisItem = new ServiceAnalysis(
+                                    reader["ServiceName"].ToString(),
+                                    Convert.ToInt32(reader["OrderId"]),
+                                    Convert.ToInt32(reader["TotalOrders"]),
+                                    Convert.ToInt32(reader["UniqueClients"]),
+                                    Convert.ToInt32(reader["AvgServicePrice"]),
+                                    Convert.ToInt32(reader["MaxServicePrice"]),
+                                    Convert.ToInt32(reader["MinServicePrice"]),
+                                    Convert.ToInt32(reader["TotalEstimatedCompletionTime"])
+                                );
+                                servList.Add(servAnalysisItem);
+                            }
                         }
-
                     }
                 }
             }
@@ -252,8 +262,8 @@ namespace DB_CourseProject.Views.Admin
             {
                 MessageBox.Show(ex.Message);
             }
-
         }
+
 
         private void Window_Activated(object sender, EventArgs e)
         {

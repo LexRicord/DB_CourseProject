@@ -452,7 +452,31 @@
             </Trigger>
         </ControlTemplate.Triggers>
     </ControlTemplate>
-    
+
+    <ControlTemplate x:Key="template_takeOrder" TargetType="Button">
+        <Border BorderBrush="#FF2B2A2A" BorderThickness="1" Height="50" Background ="#FF2F2C2C"  >
+            <ContentControl HorizontalAlignment="Center" FontFamily="Century Gothic" VerticalAlignment="Center" Content="Взять заказ" />
+        </Border>
+        <ControlTemplate.Triggers>
+            <Trigger Property="IsMouseOver" Value="true">
+                <Setter Property="FontWeight" Value="Bold"/>
+                <Setter Property="Foreground" Value="#FFA39999"/>
+            </Trigger>
+        </ControlTemplate.Triggers>
+    </ControlTemplate>
+
+    <ControlTemplate  x:Key="template_BalanceHistory" TargetType="Button">
+        <Border  BorderBrush="#FFB8B8D0"  BorderThickness="1"  Background ="#FF2F2C2C" >
+            <ContentControl Margin="5" FontFamily="Century Gothic" HorizontalAlignment="Center" VerticalAlignment="Center" Height="18" Content="История баланса"/>
+        </Border>
+        <ControlTemplate.Triggers>
+            <Trigger Property="IsMouseOver" Value="true">
+                <Setter Property="FontWeight" Value="Bold"/>
+                <Setter Property="Foreground" Value="#FFA39999"/>
+            </Trigger>
+        </ControlTemplate.Triggers>
+    </ControlTemplate>
+
     <ControlTemplate  x:Key="template_addServiceToList" TargetType="Button">
         <Border  BorderBrush="#FFB8B8D0"  BorderThickness="1"  Background ="#FF2F2C2C" >
 

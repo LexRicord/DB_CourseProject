@@ -5,7 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:DB_CourseProject.Views.Employee"
         mc:Ignorable="d"
-        Title="Добавление типа приборов" Height="210" Width="280" WindowStartupLocation="CenterScreen">
+        Title="Добавление типа приборов" Height="210" Width="280" WindowStartupLocation="CenterScreen"
+        Loaded="Window_Loaded">
     <Grid>
         <Grid.Background >
             <ImageBrush ImageSource="D:\repos\DB_CourseProject\DB_CourseProject\DB_CourseProject\Images\14.png"/>

@@ -13,7 +13,7 @@
         </Grid.ColumnDefinitions>
         <StackPanel Grid.Column="0" HorizontalAlignment="Right" Width="280">
             <Button x:Name="homePage" Height="50" Foreground="White"  Template="{DynamicResource template9}" FontSize="17" Click="homePage_Click">Начальная страница</Button>
-            <Button x:Name="BalanceHistory" Height="50" FontSize="17" Foreground="White"  Template="{DynamicResource template10}" Click="changeService_Click">Сменить услугу</Button>
+            <Button x:Name="BalanceHistory" Height="50" FontSize="17" Foreground="White"  Template="{DynamicResource template_BalanceHistory}" Click="changeService_Click">История баланса</Button>
             <Button x:Name="balanceReplenishment" Height="50" FontSize="17" Foreground="White"  Template="{DynamicResource template11}" Click="balanceReplenishment_Click">Пополнение баланса</Button>
             <Button x:Name="changePass" Height="50" Foreground="White"  Template="{DynamicResource template31}" FontSize="17" Click="changePass_Click">Изменить пароль</Button>
             <Label Height="40" FontSize="20" Content="Работа с заказами" Width="210" FontFamily="Century Gothic" HorizontalAlignment="Center">
@@ -65,32 +65,6 @@
                     Opacity="0.3"/>
                     </Label.Effect>
                 </Label>
-            </StackPanel>
-            <StackPanel x:Name="changeTariffSP" Visibility="Collapsed" Grid.ColumnSpan="2">
-                <Rectangle Height="20"></Rectangle>
-                <Rectangle Height="20"></Rectangle>
-                <Rectangle Height="20"></Rectangle>
-                <Rectangle Height="20"></Rectangle>
-                <Label Height="40" FontSize="20" Content="Выберите услугу" Width="250" HorizontalAlignment="Left" FontFamily="Century Gothic" >
-                    <Label.Effect>
-                        <DropShadowEffect
-                ShadowDepth="4"
-                Direction="330"
-                Color="Black"
-                Opacity="0.3"/>
-                    </Label.Effect>
-                </Label>
-                <ComboBox x:Name="tariffsText" FontSize="18" Height="30" Width="300" HorizontalAlignment="Left">
-                    <ComboBox.Effect>
-                        <DropShadowEffect
-                    ShadowDepth="4"
-                    Direction="330"
-                    Color="Black"
-                    Opacity="0.5"/>
-                    </ComboBox.Effect>
-                </ComboBox>
-                <Rectangle Height="20"></Rectangle>
-                <Button x:Name="changeTariffButton"  Foreground="White"  Template="{DynamicResource template8}" FontSize="18" Width="200" HorizontalAlignment="Left" Click="changeTariffButton_Click" Height="46" Content="Сменить"/>
             </StackPanel>
             <StackPanel x:Name="balanceReplenishmentSP" Visibility="Collapsed" Grid.ColumnSpan="2">
                 <Rectangle Height="20"></Rectangle>
@@ -162,8 +136,8 @@
                 </TextBox>
                 <Rectangle Height="20"></Rectangle>
             </StackPanel>
-            <Grid x:Name="callSP" Visibility="Visible" Grid.ColumnSpan="2">
-                <Label Height="40" FontSize="20" Content="Введите номер" Width="250" HorizontalAlignment="Left" Margin="0,63,0,306" FontFamily="Century Gothic">
+            <Grid x:Name="callSP" Visibility="Visible" Grid.ColumnSpan="2" d:IsHidden="True">
+                <Label Height="40" FontSize="20" Content="Введите номер" Width="250" HorizontalAlignment="Left" Margin="0,63,0,306" FontFamily="Century Gothic" d:IsHidden="True">
                     <Label.Effect>
                         <DropShadowEffect
                     ShadowDepth="4"
@@ -172,7 +146,7 @@
                     Opacity="0.3"/>
                     </Label.Effect>
                 </Label>
-                <TextBox x:Name="interlocNumText" FontSize="18" Width="300" HorizontalAlignment="Left" Margin="5,114,0,256">
+                <TextBox x:Name="interlocNumText" FontSize="18" Width="300" HorizontalAlignment="Left" Margin="5,114,0,256" d:IsHidden="True">
                     <TextBox.Effect>
                         <DropShadowEffect
                     ShadowDepth="4"
@@ -191,6 +165,58 @@
                 Opacity="0.3"/>
                 </Label.Effect>
             </Label>
+            <DataGrid x:Name="balanceHistory" IsReadOnly="True" AutoGenerateColumns="False" HeadersVisibility="Column" CanUserResizeColumns="False"
+                    CanUserResizeRows="False" CanUserReorderColumns="False" VerticalScrollBarVisibility="Visible" Margin="0,30,10,97" Grid.ColumnSpan="2">
+                <DataGrid.Resources>
+                    <Style BasedOn="{StaticResource {x:Type DataGridColumnHeader}}" TargetType="{x:Type DataGridColumnHeader}">
+                        <Setter Property="Background" Value="#FF2C2828" />
+                        <Setter Property="Foreground" Value="White" />
+                        <Setter Property="BorderThickness" Value="1" />
+                        <Setter Property="BorderBrush" Value="Black" />
+                    </Style>
+                </DataGrid.Resources>
+                <DataGrid.Background>
+                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                        <GradientStop Color="#FF767171" Offset="0"/>
+                        <GradientStop Color="#FFBD9B84" Offset="1"/>
+                    </LinearGradientBrush>
+                </DataGrid.Background>
+
+                <DataGrid.Columns>
+                    <DataGridTextColumn x:Name="TransactionId_BH" Binding="{Binding TransactionId}" Header="Id транзакции" Width="Auto"/>
+                    <DataGridTextColumn x:Name="SumOfTransaction_BH" Binding="{Binding SumOfTransaction}" Header="Сумма транзакции" Width="Auto"/>
+                    <DataGridTextColumn x:Name="TypeOfTransaction_BH" Binding="{Binding TypeOfTransaction}" Header="Тип транзакции" Width="Auto"/>
+                    <DataGridTextColumn x:Name="OrderId_BH" Binding="{Binding OrderId}" Header="Id заказа" Width="Auto"/>
+                </DataGrid.Columns>
+            </DataGrid>
+            <DataGrid x:Name="clientOrders" IsReadOnly="True" AutoGenerateColumns="False" HeadersVisibility="Column" CanUserResizeColumns="False"
+                CanUserResizeRows="False" CanUserReorderColumns="False" VerticalScrollBarVisibility="Visible" Margin="0,30,10,97" Grid.ColumnSpan="2">
+                <DataGrid.Resources>
+                    <Style BasedOn="{StaticResource {x:Type DataGridColumnHeader}}" TargetType="{x:Type DataGridColumnHeader}">
+                        <Setter Property="Background" Value="#FF2C2828" />
+                        <Setter Property="Foreground" Value="White" />
+                        <Setter Property="BorderThickness" Value="1" />
+                        <Setter Property="BorderBrush" Value="Black" />
+                    </Style>
+                </DataGrid.Resources>
+                <DataGrid.Background>
+                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                        <GradientStop Color="#FF767171" Offset="0"/>
+                        <GradientStop Color="#FFBD9B84" Offset="1"/>
+                    </LinearGradientBrush>
+                </DataGrid.Background>
+
+                <DataGrid.Columns>
+                    <DataGridTextColumn x:Name="E_id_Accepted" Binding="{Binding Path=E_id}" Header="Id работника" Width="Auto"/>
+                    <DataGridTextColumn x:Name="Model_Accepted" Binding="{Binding Path=Model}" Header="Устройство" Width="Auto"/>
+                    <DataGridTextColumn x:Name="ServicePackOrder_Accepted" Binding="{Binding Path=ServicePackOrder}" Header="Номер набора услуг" Width="Auto"/>
+                    <DataGridTextColumn x:Name="OrderPrice_Accepted" Binding="{Binding Path=OrderPrice}" Header="Стоимость" Width="Auto"/>
+                    <DataGridTextColumn x:Name="OrderState_Accepted" Binding="{Binding Path=OrderState}" Header="Состояние заказа" Width="Auto"/>
+                    <DataGridTextColumn x:Name="OrderRegDate_Accepted" Binding="{Binding Path=OrderRegDate}" Header="Дата регистрации заказа" Width="Auto"/>
+                    <DataGridTextColumn x:Name="OrderEndDate_Accepted" Binding="{Binding Path=OrderEndDate}" Header="Дата завершения" Width="Auto"/>
+                    <DataGridTextColumn x:Name="OrderDescription_Accepted" Binding="{Binding Path=OrderDescription}" Header="Описание заказа" Width="Auto"/>
+                </DataGrid.Columns>
+            </DataGrid>
 
         </Grid>
         <Button x:Name="exit" Foreground="White"  Template="{DynamicResource template_exit}"  FontSize="20" Margin="370,344,0,0" Content="Выход" Click="exit_Click" RenderTransformOrigin="-2.077,1.011" Grid.Column="1" HorizontalAlignment="Left" Width="124" Height="45" VerticalAlignment="Top"/>

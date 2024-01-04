@@ -43,6 +43,12 @@
     <Compile Update="Views\Employee\MasterWindow.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="Views\Employee\MoreDetailsAboutNotAcceptedOrder.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\Employee\MoreDetailsAboutOrder.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="Views\Employee\ReadyOrderWindow.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -94,6 +100,12 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Views\Employee\MasterWindow.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\Employee\MoreDetailsAboutNotAcceptedOrder.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\Employee\MoreDetailsAboutOrder.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Views\Employee\ReadyOrderWindow.xaml">

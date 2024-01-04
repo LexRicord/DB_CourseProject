@@ -10,16 +10,13 @@ using Oracle.ManagedDataAccess.Client;
 
 namespace DB_CourseProject.Views.Employee
 {
-    /// <summary>
-    /// Логика взаимодействия для MasterWindow.xaml
-    /// </summary>
     public partial class MasterWindow : Window
     {
         private CurrentEmployee currentEmployee1;
         public BindingList<Info> accepted = new BindingList<Info>();
         public BindingList<Info> ready = new BindingList<Info>();
         public BindingList<Info> notAccepted = new BindingList<Info>();
-        Info info;
+        Info info, selectedInfo;
         public MasterWindow(CurrentEmployee currentEmployee)
         {
             InitializeComponent();
@@ -31,7 +28,7 @@ namespace DB_CourseProject.Views.Employee
             try
             {
                 NotAcceptedOrders();
-                acceptedOrders.ItemsSource = accepted;
+                notAcceptedOrders.ItemsSource = notAccepted;
             }
             catch (Exception) { }
             try
@@ -62,13 +59,11 @@ namespace DB_CourseProject.Views.Employee
         private void TabItem_MouseLeftButtonUp_1(object sender, MouseButtonEventArgs e)
         {
             readyButt.Height = 0;
-
         }
 
         private void TabItem_MouseLeftButtonUp_2(object sender, MouseButtonEventArgs e)
         {
             readyButt.Height = 0;
-
         }
         private void pickOrderButt_Click(object sender, RoutedEventArgs e)
         {
@@ -254,8 +249,6 @@ namespace DB_CourseProject.Views.Employee
             }
         }
 
-
-
         private void moreNotAccepted_Click(object sender, RoutedEventArgs e)
         {
 
@@ -288,7 +281,7 @@ namespace DB_CourseProject.Views.Employee
 
         private void readyButt_Click(object sender, RoutedEventArgs e)
         {
-            ReadyOrderWindow ready = new ReadyOrderWindow();
+            ReadyOrderWindow ready = new ReadyOrderWindow(selectedInfo);
             ready.Show();
         }
 
@@ -303,6 +296,93 @@ namespace DB_CourseProject.Views.Employee
             CreateOrderWindow createContractWindow = new CreateOrderWindow(CurrentEmployee2);
             createContractWindow.Show();
             this.Close();
+        }
+
+        private void notAcceptedOrders_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            if (notAcceptedOrders.SelectedItem != null)
+            {
+                var selectedOrder = (Info)notAcceptedOrders.SelectedItem;
+
+                int orderId = selectedOrder.Order_id;
+
+                MoreDetailsAboutOrder detailsWindow = new MoreDetailsAboutOrder(orderId);
+                detailsWindow.Show();
+            }
+        }
+
+        private void acceptedOrders_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            if (acceptedOrders.SelectedItem != null)
+            {
+                var selectedOrder = (Info)acceptedOrders.SelectedItem;
+
+                int orderId = selectedOrder.Order_id;
+
+                MoreDetailsAboutOrder detailsWindow = new MoreDetailsAboutOrder(orderId);
+                detailsWindow.Show();
+            }
+        }
+
+        private void readyOrders_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            if (readyOrders.SelectedItem != null)
+            {
+                var selectedOrder = (Info)readyOrders.SelectedItem;
+
+                int orderId = selectedOrder.Order_id;
+
+                MoreDetailsAboutOrder detailsWindow = new MoreDetailsAboutOrder(orderId);
+                detailsWindow.Show();
+            }
+        }
+
+        private void takeOrder_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                using (OracleConnection connection = new OracleConnection(OracleDatabaseConnection.adminConn))
+                {
+                    connection.Open();
+
+                    using (OracleCommand addEmployeeToOrderCommand = new OracleCommand("addEmployeeToOrder", connection))
+                    {
+                        addEmployeeToOrderCommand.CommandType = CommandType.StoredProcedure;
+
+                        addEmployeeToOrderCommand.Parameters.Add("p_orderId", OracleDbType.Int32).Value = selectedInfo.Order_id;
+                        addEmployeeToOrderCommand.Parameters.Add("p_employeeId", OracleDbType.Int32).Value = currentEmployee1.id;
+
+                        addEmployeeToOrderCommand.ExecuteNonQuery();
+                        MessageBox.Show("Работник успешно добавлен!");
+                    }
+                }
+            }
+            catch (OracleException ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        private void notAcceptedOrders_MouseUp(object sender, MouseButtonEventArgs e)
+        {
+            if (notAcceptedOrders.SelectedItem != null && e.ChangedButton == MouseButton.Left)
+            {
+                selectedInfo = (Info)notAcceptedOrders.SelectedItem;
+
+                info = new Info(selectedInfo.Order_id, selectedInfo.ClientEmail, selectedInfo.OrderPrice, selectedInfo.ServicePackOrder,
+                                selectedInfo.OrderRegDate, selectedInfo.OrderEndDate, selectedInfo.OrderState, selectedInfo.OrderDescription, selectedInfo.Model);
+            }
+        }
+
+        private void acceptedOrders_MouseUp(object sender, MouseButtonEventArgs e)
+        {
+            if (acceptedOrders.SelectedItem != null && e.ChangedButton == MouseButton.Left)
+            {
+                selectedInfo = (Info)acceptedOrders.SelectedItem;
+
+                info = new Info(selectedInfo.Order_id, selectedInfo.ClientEmail, selectedInfo.OrderPrice, selectedInfo.ServicePackOrder,
+                                selectedInfo.OrderRegDate, selectedInfo.OrderEndDate, selectedInfo.OrderState, selectedInfo.OrderDescription, selectedInfo.Model);
+            }
         }
     }
 }
